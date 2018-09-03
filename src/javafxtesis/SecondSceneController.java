@@ -27,6 +27,7 @@ public class SecondSceneController {
     /*
     Todo lo relacionado con la gestion de Usuarios
     */
+    @FXML private Label mensaje;
     @FXML private VBox datosUsuario;
     @FXML private JFXButton add;
     @FXML private JFXButton delete;
