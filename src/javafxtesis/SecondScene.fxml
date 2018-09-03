@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="462.0" prefWidth="650.0" style="-fx-background-color: #2A3048;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxtesis.SecondSceneController">
+   <children>
+      <AnchorPane prefHeight="462.0" prefWidth="200.0" style="-fx-background-color: #677DD6;">
+         <children>
+            <Label fx:id="titulo" layoutX="45.0" layoutY="25.0" text="FaceSecurity" textFill="SNOW">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <VBox layoutY="108.0" prefHeight="197.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="48.0" prefWidth="200.0" text="¿Qué acción desea tomar?" textFill="SNOW">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <JFXButton fx:id="gestion" buttonType="RAISED" onAction="#gestionUser" prefHeight="48.0" prefWidth="200.0" ripplerFill="#ab2727" text="Gestion de Usuario" textFill="#bbbbbb">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="18.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icons8_Settings_50px_2.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="eventos" buttonType="RAISED" prefHeight="48.0" prefWidth="200.0" ripplerFill="#ab2727" text="Eventos" textFill="#bbbbbb">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="18.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icons8_Notification_50px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="trainer" buttonType="RAISED" prefHeight="48.0" prefWidth="200.0" ripplerFill="#ab2727" text="Crear Trainer" textFill="#bbbbbb">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="18.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icons8_Barbell_50px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="salir" buttonType="RAISED" prefHeight="48.0" prefWidth="200.0" ripplerFill="#ab2727" text="Salir" textFill="#bbbbbb">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="18.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icons8_Undo_50px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <Label fx:id="cerrar" layoutX="622.0" layoutY="6.0" onMouseClicked="#cerrar" text="X" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <VBox fx:id="datosUsuario" layoutX="215.0" layoutY="36.0" prefHeight="403.0" prefWidth="418.0">
+         <children>
+            <AnchorPane prefHeight="166.0" prefWidth="400.0" style="-fx-background-color: #677DD6;">
+               <children>
+                  <Text fx:id="name" fill="SNOW" layoutX="16.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre" visible="false" wrappingWidth="110.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="cedula" fill="SNOW" layoutX="16.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cedula" visible="false" wrappingWidth="110.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="user" fill="SNOW" layoutX="16.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario" visible="false" wrappingWidth="110.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="apellido" fill="SNOW" layoutX="143.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellido" visible="false" wrappingWidth="94.201171875">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="cargo" fill="SNOW" layoutX="145.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cargo" visible="false" wrappingWidth="56.10546875">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="pass" fill="SNOW" layoutX="149.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clave" visible="false" wrappingWidth="82.208984375">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <ImageView fx:id="foto" fitHeight="136.0" fitWidth="134.0" layoutX="273.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
+                  <JFXTextField fx:id="userText" focusColor="#bbbbbb" labelFloat="true" layoutX="7.0" layoutY="118.0" prefHeight="30.0" prefWidth="117.0" promptText="Usuario" unFocusColor="#bbbbbb" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="cedText" focusColor="#bbbbbb" labelFloat="true" layoutX="7.0" layoutY="66.0" prefHeight="30.0" prefWidth="117.0" promptText="Cedula" unFocusColor="#bbbbbb" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="nameText" focusColor="#bbbbbb" labelFloat="true" layoutX="7.0" layoutY="15.0" prefHeight="30.0" prefWidth="117.0" promptText="Nombre" unFocusColor="#bbbbbb" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="apeText" focusColor="#bbbbbb" labelFloat="true" layoutX="145.0" layoutY="15.0" prefHeight="30.0" prefWidth="110.0" promptText="Apellido" unFocusColor="#bbbbbb" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="cargoText" focusColor="#bbbbbb" labelFloat="true" layoutX="145.0" layoutY="66.0" prefHeight="30.0" prefWidth="110.0" promptText="Cargo" unFocusColor="#bbbbbb" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="passText" focusColor="#bbbbbb" labelFloat="true" layoutX="145.0" layoutY="118.0" prefHeight="30.0" prefWidth="110.0" promptText="Clave" unFocusColor="#bbbbbb" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextField>
+               </children>
+            </AnchorPane>
+            <Separator prefWidth="200.0" visible="false" />
+            <HBox prefHeight="42.0" prefWidth="418.0" style="-fx-background-color: # 677DD6;">
+               <children>
+                  <JFXButton fx:id="nuevo" buttonType="RAISED" prefHeight="42.0" prefWidth="209.0" ripplerFill="#ab2727" style="-fx-background-color: #677DD6;" text="Nuevo" textFill="#bbbbbb">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="18.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icons8_Plus_50px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
+                  <JFXButton fx:id="add" buttonType="RAISED" prefHeight="42.0" prefWidth="209.0" ripplerFill="#ab2727" style="-fx-background-color: #677DD6;" text="Agregar" textFill="#bbbbbb">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="18.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icons8_Checkmark_50px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
+                  <JFXButton fx:id="delete" buttonType="RAISED" prefHeight="42.0" prefWidth="209.0" ripplerFill="#ab2727" style="-fx-background-color: #677DD6;" text="Borrar" textFill="#bbbbbb">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icons8_Trash_Can_50px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <Separator prefWidth="200.0" visible="false" />
+            <TableView fx:id="tabla" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fffafa;">
+              <columns>
+                <TableColumn prefWidth="75.0" text="ID" />
+                <TableColumn prefWidth="75.0" text="Nombre" />
+                  <TableColumn prefWidth="75.0" text="Apellido" />
+                  <TableColumn prefWidth="75.0" text="Cedula" />
+                  <TableColumn prefWidth="75.0" text="Cargo" />
+                  <TableColumn prefWidth="75.0" text="Usuario" />
+                  <TableColumn prefWidth="75.0" text="Clave" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
