@@ -34,19 +34,19 @@ public class ConexionesExternas {
             myStmt = myConn.createStatement();
 		
             myStmt.executeQuery("SELECT "
-                    + "user, "
-                    + "clave "
-                    + "FROM empleados WHERE perfil="+1);
+                    + "usuario, "
+                    + "password "
+                    + "FROM empleado WHERE nivel_id="+1);
             /*
             * Ejecuto el query
             */
-            myRs = myStmt.executeQuery("select * from empleados where perfil="+1+"&& user="+" '"+user+"' && clave="+" '"+pass+"'");
+            myRs = myStmt.executeQuery("select * from empleado where nivel_id="+1+"&& usuario="+" '"+user+"' && password="+" '"+pass+"'");
             /*
             * Proceso el resultado
             */
             while(myRs.next()) {
-                String clave = myRs.getString("clave");
-                String usuario = myRs.getString("user");
+                String clave = myRs.getString("password");
+                String usuario = myRs.getString("usuario");
                 if(pass.contains(clave) && user.contains(usuario)) {
                     System.out.println("Acceso autorizado");
                     autorizacion = true;
@@ -166,16 +166,20 @@ public class ConexionesExternas {
     
     protected void conexionTabla(TableView<Person> list,  ObservableList<Person> items) throws SQLException {
         try {
-            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tesis", "root", "");
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tesis_sistemadeseguridad", "root", "");
             }
 	catch (SQLException e) {
             System.out.println(e.getMessage());
             }
         try {
             myStmt = myConn.createStatement();
-            myRs = myStmt.executeQuery("SELECT * FROM empleados");
+            myRs = myStmt.executeQuery("SELECT emp.id, emp.nombre, emp.apellido,  niv.cargo, emp.cedula, emp.usuario," + 
+            		" emp.password" + 
+            		" FROM tesis_sistemadeseguridad.nivel niv" + 
+            		" JOIN tesis_sistemadeseguridad.empleado emp ON (niv.id = emp.nivel_id)");
             while (myRs.next()) {
-		items.add(new Person(myRs.getString("id"), myRs.getString("nombre"), myRs.getString("apellido"), myRs.getString("cargo"), myRs.getString("user"), myRs.getString("clave")));
+		items.add(new Person(myRs.getString("emp.id"), myRs.getString("emp.nombre"), myRs.getString("emp.apellido"), 
+				 myRs.getString("niv.cargo"), myRs.getString("emp.usuario"), myRs.getString("emp.password"),myRs.getString("emp.cedula")));
 		}
             }
         catch (SQLException e) {
@@ -185,11 +189,12 @@ public class ConexionesExternas {
     
     protected void eliminarUsuario(ObservableList<Person> items)throws SQLException {
         String id = items.get(0).getId();
-	String query = "DELETE FROM empleados WHERE id=?";
+        System.out.println(id);
+	String query ="DELETE FROM empleado WHERE id=?;"; 
 	int idInt = Integer.parseInt(id);
 		
 	try {
-            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tesis","root","");
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tesis_sistemadeseguridad","root","");
 			
             PreparedStatement stmt = myConn.prepareStatement(query);
             stmt.setInt(1, idInt);
@@ -199,10 +204,11 @@ public class ConexionesExternas {
 		System.out.println("deleted");
 		}
             else {
-		System.out.println("CanÂ´t delete");
+		System.out.println("Can´t delete");
 		}
 	}
 	catch (Exception ex) {
+			System.err.println(ex.getMessage());
             System.out.print("ERROR");
             }
 	finally {

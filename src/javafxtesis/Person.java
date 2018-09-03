@@ -8,16 +8,17 @@ package javafxtesis;
 
 import javafx.beans.property.SimpleStringProperty;
 
-class Person {
-    private SimpleStringProperty id, nombre, apellido, cargo, user, pass;
+public class Person {
+    private SimpleStringProperty id, nombre, apellido, cargo, user, pass, cedula;
 	
-    public Person(String id, String nombre, String apellido, String cargo, String user, String pass) {
+    public Person(String id, String nombre, String apellido, String cargo, String user, String pass, String cedula) {
         this.id = new SimpleStringProperty(id);
         this.nombre = new SimpleStringProperty(nombre);
         this.apellido = new SimpleStringProperty(apellido);	
         this.cargo = new SimpleStringProperty(cargo);
         this.user = new SimpleStringProperty(user);
         this.pass = new SimpleStringProperty(pass);
+        this.cedula = new SimpleStringProperty(cedula);
     }
     
     public String getId() {
@@ -67,8 +68,16 @@ class Person {
     public void setPass(String pass) {
         this.pass = new SimpleStringProperty(pass);
     }
+    
+    public String getCedula() {
+    	 return cedula.get();
+	}
+    
+    public void setCedula(String cedula) {
+    	 this.cedula = new SimpleStringProperty(cedula);
+	}
 	
     public String toString() {
-        return String.format("%s %s %s %s %s %s", id, nombre, apellido, cargo, user, pass);
+        return String.format("%s %s %s %s %s %s %s", id, nombre, apellido, cargo, user, pass, cedula);
     }
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="dist/JavaFXTesis.jar"/>
+	<classpathentry kind="lib" path="dist/lib/apache-commons-net.jar"/>
+	<classpathentry kind="lib" path="dist/lib/ffmpeg.jar"/>
+	<classpathentry kind="lib" path="dist/lib/javacpp.jar"/>
+	<classpathentry kind="lib" path="dist/lib/javacv-platform.jar"/>
+	<classpathentry kind="lib" path="dist/lib/javacv.jar"/>
+	<classpathentry kind="lib" path="dist/lib/jfoenix-8.0.7.jar"/>
+	<classpathentry kind="lib" path="dist/lib/mysql-connector-java-5.1.45-bin.jar"/>
+	<classpathentry kind="lib" path="dist/lib/opencv-341.jar"/>
+	<classpathentry kind="lib" path="dist/lib/opencv.jar"/>
+	<classpathentry kind="lib" path="dist/run1182286587/JavaFXTesis.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

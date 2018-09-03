@@ -78,7 +78,7 @@ public class FirstSceneController {
             //Se confirma de que en realidad se un administrador
             
             if (acceso){
-                Parent loader = FXMLLoader.load(getClass().getResource(""));
+                Parent loader = FXMLLoader.load(getClass().getResource("SecondScene.fxml"));
                 Scene menu = new Scene(loader);
                 
                 Stage window;
