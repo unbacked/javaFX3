@@ -35,7 +35,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
-
 /**
  * FXML Controller class
  *
@@ -70,7 +69,6 @@ public class SecondSceneController implements Initializable {
     @FXML private JFXTextField apeText;
     @FXML private JFXTextField cargoText;
     @FXML private JFXTextField passText;
-    
     
     //Relacionado con la tabla
     @FXML private TableView <Person> tabla;
@@ -110,6 +108,7 @@ public class SecondSceneController implements Initializable {
         Stage stage = (Stage)cerrar.getScene().getWindow();
         stage.close();
     }
+    
     /*
     Menu General
     */
@@ -136,7 +135,7 @@ public class SecondSceneController implements Initializable {
         Thread hilo = new Thread(new TrainingHilo());
         hilo.start();
     }
-
+    
     /*
     En gestion de Usuarios
     */

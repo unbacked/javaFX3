@@ -88,11 +88,6 @@
       </Label>
       <VBox fx:id="datosUsuario" layoutX="215.0" layoutY="36.0" prefHeight="403.0" prefWidth="418.0" visible="false">
          <children>
-            <Label fx:id="mensaje" prefHeight="30.0" prefWidth="420.0" textFill="SNOW">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
             <AnchorPane prefHeight="166.0" prefWidth="400.0" style="-fx-background-color: #677DD6;">
                <children>
                   <Text fx:id="name" fill="SNOW" layoutX="16.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre" visible="false" wrappingWidth="110.0">
