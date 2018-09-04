@@ -8,12 +8,16 @@
   </information>
   <resources>
     <j2se version="1.6+" java-vm-args="-Djava.library.path=C:\Users\DanielT\Documents\TESIS\opencv\build\java\x64 "  href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="JavaFXTesis.jar" size="22073" download="eager" />
+    <jar href="JavaFXTesis.jar" size="42156" download="eager" />
     <jar href="lib\apache-commons-net.jar" size="460010" download="eager" />
+    <jar href="lib\ffmpeg.jar" size="241819" download="eager" />
     <jar href="lib\javacpp.jar" size="352202" download="eager" />
+    <jar href="lib\javacv-platform.jar" size="2363" download="eager" />
     <jar href="lib\javacv.jar" size="393255" download="eager" />
+    <jar href="lib\jfoenix-8.0.7.jar" size="2631271" download="eager" />
     <jar href="lib\mysql-connector-java-5.1.45-bin.jar" size="999810" download="eager" />
     <jar href="lib\opencv-341.jar" size="423917" download="eager" />
+    <jar href="lib\opencv.jar" size="1470649" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="JavaFXTesis" >
     <param name="requiredFXVersion" value="8.0+"/>

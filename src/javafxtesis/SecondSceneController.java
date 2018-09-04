@@ -4,14 +4,20 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.net.URL;
+import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -74,60 +80,104 @@ public class SecondSceneController implements Initializable {
 	@FXML private TableColumn <Person, String> cedulaColumn;
 	private ObservableList<Person> people = FXCollections.observableArrayList();
 	
-	//Objeto para conexiones
-	ConexionesExternas con = new ConexionesExternas();
-	
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		System.out.println("Si entra");
-		idColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("id"));
-		nomColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("nombre"));
-		apColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("apellido"));
-		carColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("cargo"));
-		userColumn.setCellValueFactory(new PropertyValueFactory<Person,String>("user"));
-		passColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("pass"));
-		cedulaColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("cedula"));
-		
-		tabla.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		
-		try {
-			con.conexionTabla(tabla, people);
-		}
-		catch(SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@FXML protected void borrarUsuario()  throws SQLException {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Alerta");
-		alert.setHeaderText("Mejor prevenir que lamentar");
-		alert.setContentText("¿Esta seguro de que desea eliminar a este usuario?");
+    //Objeto para conexiones
+    ConexionesExternas con = new ConexionesExternas();
 
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK){
-			ObservableList<Person> selectedRows, allPeople;
-			allPeople = tabla.getItems();
-			
-			selectedRows = tabla.getSelectionModel().getSelectedItems();
-			con.eliminarUsuario(selectedRows);
-			allPeople.removeAll(selectedRows);
-		} else {
-			
-		}
-	}
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        idColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("id"));
+        nomColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("nombre"));
+        apColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("apellido"));
+        carColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("cargo"));
+        userColumn.setCellValueFactory(new PropertyValueFactory<Person,String>("user"));
+        passColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("pass"));
+        cedulaColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("cedula"));
+		
+        tabla.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
+        try {
+            con.conexionTabla(tabla, people);
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
 	
-	 @FXML protected void entrenar(){
-			Thread hilo = new Thread(new TrainingHilo());
-			hilo.start();
-	    }
-
     @FXML protected void cerrar(){
         Stage stage = (Stage)cerrar.getScene().getWindow();
         stage.close();
     }
-    
+    /*
+    Menu General
+    */
     @FXML protected void gestionUser(){
         this.datosUsuario.setVisible(true);
     }
+    
+    @FXML protected void showEvents(){
+        
+    }
+    
+    @FXML protected void atras(ActionEvent event) throws IOException{
+        Parent loader = FXMLLoader.load(getClass().getResource("FirstScene.fxml"));
+        Scene inicio = new Scene(loader);
+        
+        Stage window;
+        window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        
+        window.setScene(inicio);
+        window.show();
+    }
+    
+    @FXML protected void entrenar(){
+        Thread hilo = new Thread(new TrainingHilo());
+        hilo.start();
+    }
+
+    /*
+    En gestion de Usuarios
+    */
+    @FXML protected void borrarUsuario()  throws SQLException {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Alerta");
+        alert.setHeaderText("Mejor prevenir que lamentar");
+        alert.setContentText("Esta seguro de que desea eliminar a este usuario?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            ObservableList<Person> selectedRows, allPeople;
+            allPeople = tabla.getItems();
+			
+            selectedRows = tabla.getSelectionModel().getSelectedItems();
+            con.eliminarUsuario(selectedRows);
+            allPeople.removeAll(selectedRows);
+        }
+        else {
+			
+        }
+    }
+    
+    @FXML protected void newUser(){
+        this.add.setVisible(true);
+        this.apeText.setVisible(true);
+        this.nameText.setVisible(true);
+        this.userText.setVisible(true);
+        this.cedText.setVisible(true);
+        this.cargoText.setVisible(true);
+        this.passText.setVisible(true);
+        
+        String ape = this.apeText.toString();
+        String nombre = this.nameText.toString();
+        String usuario = this.userText.toString();
+        String ced = this.cedText.toString();
+        String carg = this.cargoText.toString();
+        String clave = this.passText.toString();
+        
+        if(ape.length()!=0 && nombre.length()!=0 && ced.length()!=0 && carg.length()!=0 && usuario.length()!= 0 && clave.length()!=0){
+           this.foto.setVisible(true); 
+        }
+        
+        this.nuevo.setVisible(false);
+    }
+        
 }

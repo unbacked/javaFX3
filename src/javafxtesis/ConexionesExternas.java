@@ -180,6 +180,8 @@ public class ConexionesExternas {
             while (myRs.next()) {
 		items.add(new Person(myRs.getString("emp.id"), myRs.getString("emp.nombre"), myRs.getString("emp.apellido"), 
 				 myRs.getString("niv.cargo"), myRs.getString("emp.usuario"), myRs.getString("emp.password"),myRs.getString("emp.cedula")));
+                
+                System.out.println("PRUEBA");
 		}
             }
         catch (SQLException e) {
@@ -201,10 +203,10 @@ public class ConexionesExternas {
             int result = stmt.executeUpdate();
             eliminarFotos(idInt);
             if (result >0) {
-		System.out.println("deleted");
+		System.out.println("Borrado");
 		}
             else {
-		System.out.println("Can´t delete");
+		System.out.println("No se puede borrar");
 		}
 	}
 	catch (Exception ex) {

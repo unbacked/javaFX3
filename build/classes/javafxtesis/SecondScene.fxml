@@ -41,7 +41,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="eventos" buttonType="RAISED" prefHeight="48.0" prefWidth="200.0" ripplerFill="#ab2727" text="Eventos" textFill="#bbbbbb">
+                  <JFXButton fx:id="eventos" buttonType="RAISED" onAction="#showEvents" prefHeight="48.0" prefWidth="200.0" ripplerFill="#ab2727" text="Eventos" textFill="#bbbbbb">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -65,7 +65,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="salir" buttonType="RAISED" prefHeight="48.0" prefWidth="200.0" ripplerFill="#ab2727" text="Salir" textFill="#bbbbbb">
+                  <JFXButton fx:id="salir" buttonType="RAISED" onAction="#atras" prefHeight="48.0" prefWidth="200.0" ripplerFill="#ab2727" text="Salir" textFill="#bbbbbb">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -86,7 +86,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <VBox fx:id="datosUsuario" layoutX="215.0" layoutY="36.0" prefHeight="403.0" prefWidth="418.0">
+      <VBox fx:id="datosUsuario" layoutX="215.0" layoutY="36.0" prefHeight="403.0" prefWidth="418.0" visible="false">
          <children>
             <Label fx:id="mensaje" prefHeight="30.0" prefWidth="420.0" textFill="SNOW">
                <font>
@@ -125,7 +125,10 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <ImageView fx:id="foto" fitHeight="136.0" fitWidth="134.0" layoutX="273.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="foto" fitHeight="136.0" fitWidth="134.0" layoutX="273.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@images/icons8_User_50px_1.png" />
+                     </image></ImageView>
                   <JFXTextField fx:id="userText" focusColor="#bbbbbb" labelFloat="true" layoutX="7.0" layoutY="118.0" prefHeight="30.0" prefWidth="117.0" promptText="Usuario" unFocusColor="#bbbbbb" visible="false">
                      <font>
                         <Font size="14.0" />
@@ -159,9 +162,9 @@
                </children>
             </AnchorPane>
             <Separator prefWidth="200.0" visible="false" />
-            <HBox prefHeight="42.0" prefWidth="418.0" style="-fx-background-color: #677DD6;">
+            <HBox prefHeight="42.0" prefWidth="418.0" style="-fx-background-color: #2A3048;">
                <children>
-                  <JFXButton fx:id="nuevo" buttonType="RAISED" prefHeight="42.0" prefWidth="209.0" ripplerFill="#ab2727" style="-fx-background-color: #677DD6;" text="Nuevo" textFill="#bbbbbb">
+                  <JFXButton fx:id="nuevo" buttonType="RAISED" onAction="#newUser" prefHeight="42.0" prefWidth="209.0" ripplerFill="#ab2727" style="-fx-background-color: #677DD6;" text="Nuevo" textFill="#bbbbbb">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -174,7 +177,7 @@
                      </graphic>
                   </JFXButton>
                   <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
-                  <JFXButton fx:id="add" buttonType="RAISED" prefHeight="42.0" prefWidth="209.0" ripplerFill="#ab2727" style="-fx-background-color: #677DD6;" text="Agregar" textFill="#bbbbbb">
+                  <JFXButton fx:id="add" buttonType="RAISED" prefHeight="42.0" prefWidth="209.0" ripplerFill="#ab2727" style="-fx-background-color: #677DD6;" text="Agregar" textFill="#bbbbbb" visible="false">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -187,7 +190,7 @@
                      </graphic>
                   </JFXButton>
                   <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
-                  <JFXButton fx:id="delete" onAction="#borrarUsuario" buttonType="RAISED" prefHeight="42.0" prefWidth="209.0" ripplerFill="#ab2727" style="-fx-background-color: #677DD6;" text="Borrar" textFill="#bbbbbb">
+                  <JFXButton fx:id="delete" buttonType="RAISED" onAction="#borrarUsuario" prefHeight="42.0" prefWidth="209.0" ripplerFill="#ab2727" style="-fx-background-color: #677DD6;" text="Borrar" textFill="#bbbbbb">
                      <font>
                         <Font size="15.0" />
                      </font>
