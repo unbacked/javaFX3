@@ -120,11 +120,6 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Text fx:id="pass" fill="SNOW" layoutX="149.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clave" visible="false" wrappingWidth="82.208984375">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
                   <ImageView fx:id="foto" fitHeight="136.0" fitWidth="134.0" layoutX="273.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
                         <Image url="@images/icons8_User_50px_1.png" />
@@ -177,7 +172,7 @@
                      </graphic>
                   </JFXButton>
                   <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
-                  <JFXButton fx:id="add" buttonType="RAISED" prefHeight="42.0" prefWidth="209.0" ripplerFill="#ab2727" style="-fx-background-color: #677DD6;" text="Agregar" textFill="#bbbbbb" visible="false">
+                  <JFXButton fx:id="add" buttonType="RAISED" onAction="#addDB" prefHeight="42.0" prefWidth="209.0" ripplerFill="#ab2727" style="-fx-background-color: #677DD6;" text="Agregar" textFill="#bbbbbb" visible="false">
                      <font>
                         <Font size="15.0" />
                      </font>

@@ -49,6 +49,8 @@ public class FirstSceneController {
     
     @FXML protected void regreso(){
         this.datos.setVisible(false);
+        this.userText.clear();
+        this.passText.clear();
     }
     
     @FXML protected void datosAdmin(ActionEvent event) throws SQLException, IOException {

@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" java-vm-args="-Djava.library.path=C:\Users\DanielT\Documents\TESIS\opencv\build\java\x64 "  href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="JavaFXTesis.jar" size="42156" download="eager" />
+    <jar href="JavaFXTesis.jar" size="42386" download="eager" />
     <jar href="lib\apache-commons-net.jar" size="460010" download="eager" />
     <jar href="lib\ffmpeg.jar" size="241819" download="eager" />
     <jar href="lib\javacpp.jar" size="352202" download="eager" />

@@ -8,6 +8,8 @@ import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,6 +28,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -157,7 +160,10 @@ public class SecondSceneController implements Initializable {
         }
     }
     
-    @FXML protected void newUser(){
+    @FXML protected void newUser() throws FileNotFoundException{
+        FileInputStream input = new FileInputStream("src/javafxtesis/images/icons8_User_50px_1.png");
+        Image imagen = new Image(input);
+        
         this.add.setVisible(true);
         this.apeText.setVisible(true);
         this.nameText.setVisible(true);
@@ -174,10 +180,14 @@ public class SecondSceneController implements Initializable {
         String clave = this.passText.toString();
         
         if(ape.length()!=0 && nombre.length()!=0 && ced.length()!=0 && carg.length()!=0 && usuario.length()!= 0 && clave.length()!=0){
+           this.foto.setImage(imagen);
            this.foto.setVisible(true); 
         }
         
         this.nuevo.setVisible(false);
     }
+      
+    @FXML protected void addDB(){
         
+    }
 }
