@@ -270,4 +270,34 @@ public class ConexionesExternas {
         return id;
     }
     
+    protected String consultaImagenBD(String id) throws SQLException{
+    	 String  direccionImagen = null;
+    	 try {
+             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tesis_sistemadeseguridad","root","");
+             myStmt = myConn.createStatement();
+             myRs = myStmt.executeQuery("select imagen.nombreImagen from imagen "
+             		+ "where imagen.principal = 1 && imagen.empleado_id ="+" '"+id+"'");		
+             while(myRs.next()) {
+                direccionImagen = myRs.getString("nombreImagen");
+             }
+             
+         }
+         
+         catch (Exception exc) {
+             exc.printStackTrace();
+         }
+         finally {
+             if (myRs != null) {
+                 myRs.close();
+             }
+             if (myStmt != null) {
+                 myStmt.close();
+             }
+             if (myConn != null) {
+                 myConn.close();
+             }
+         }
+         return  direccionImagen;
+    }
+    
 }

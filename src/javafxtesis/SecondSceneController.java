@@ -110,7 +110,13 @@ public class SecondSceneController implements Initializable {
             TableRow<Person> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 1 && (! row.isEmpty()) ) {
-                	datosUsuario(row);
+                	try {
+						datosUsuario(row);
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
                 }
             });
             return row ;
@@ -118,10 +124,22 @@ public class SecondSceneController implements Initializable {
         
     }
 	
-    private void datosUsuario(TableRow<Person> fila ) {
+    private void datosUsuario(TableRow<Person> fila ) throws FileNotFoundException, SQLException {
     	Person rowData = fila.getItem();
-        System.out.println("Hola mundo");
-        System.out.println(rowData);	
+        System.out.println(rowData);
+        
+        String urlImagen = con.consultaImagenBD(rowData.getId());
+        String direccionImg;
+        
+        if( urlImagen!=null) {
+        	  direccionImg = "C:/xampp/htdocs/" + urlImagen;
+        }else {
+        	  direccionImg = "src/javafxtesis/images/icons8_User_50px_1.png";
+        }
+        FileInputStream input = new FileInputStream(direccionImg);
+        Image imagen = new Image(input);
+        this.foto.setImage(imagen);
+        this.foto.setVisible(true);
 	}
 
 	@FXML protected void cerrar(){
