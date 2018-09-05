@@ -117,7 +117,7 @@ public class ConexionesExternas {
         }
     }
     
-    protected void conexionDBnormal(String nombre, String apellido, String cargo, String user, String pass, int perfil) throws SQLException {
+    protected void conexionDBnormal(String nombre, String apellido, String cedula, String cargo, String user, String pass, int perfil) throws SQLException {
         try {
             /*
             * Conexion con la DB
@@ -131,12 +131,13 @@ public class ConexionesExternas {
             myStmt.executeUpdate("INSERT INTO empleados ("
                     +"nombre, "
                     +"apellido, "
+                    + "cedula, "
                     +"cargo, "
                     +"user, "
                     +"clave, "
                     +"perfil)"
                     +"VALUES ("
-                    + "'"+nombre+"','"+apellido+"','"+cargo+"','"+user+"','"+pass+"','"+perfil+"')");
+                    + "'"+nombre+"','"+apellido+"','"+cedula+"','"+cargo+"','"+user+"','"+pass+"','"+perfil+"')");
             /*
             * Ejecuto el query
             */
