@@ -26,6 +26,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -103,9 +104,27 @@ public class SecondSceneController implements Initializable {
         catch(SQLException e) {
             e.printStackTrace();
         }
+        
+        //Codigo que escuha hasta oprimer una fila 
+        tabla.setRowFactory( tv -> {
+            TableRow<Person> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1 && (! row.isEmpty()) ) {
+                	datosUsuario(row);
+                }
+            });
+            return row ;
+        });
+        
     }
 	
-    @FXML protected void cerrar(){
+    private void datosUsuario(TableRow<Person> fila ) {
+    	Person rowData = fila.getItem();
+        System.out.println("Hola mundo");
+        System.out.println(rowData);	
+	}
+
+	@FXML protected void cerrar(){
         Stage stage = (Stage)cerrar.getScene().getWindow();
         stage.close();
     }
@@ -202,8 +221,8 @@ public class SecondSceneController implements Initializable {
         		 this.cedText.getText().toString().trim())
         	);
         
-        
-        tabla.setItems(people);
-       
+        tabla.setItems(people);   
     }
+  
+    
 }
