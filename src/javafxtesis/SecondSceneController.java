@@ -26,6 +26,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -83,7 +84,8 @@ public class SecondSceneController implements Initializable {
 	
     //Objeto para conexiones
     ConexionesExternas con = new ConexionesExternas();
-
+   
+    
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         idColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("id"));
@@ -102,9 +104,45 @@ public class SecondSceneController implements Initializable {
         catch(SQLException e) {
             e.printStackTrace();
         }
+        
+        //Codigo que escuha hasta oprimer una fila 
+        tabla.setRowFactory( tv -> {
+            TableRow<Person> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1 && (! row.isEmpty()) ) {
+                	try {
+						datosUsuario(row);
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+                }
+            });
+            return row ;
+        });
+        
     }
 	
-    @FXML protected void cerrar(){
+    private void datosUsuario(TableRow<Person> fila ) throws FileNotFoundException, SQLException {
+    	Person rowData = fila.getItem();
+        System.out.println(rowData);
+        
+        String urlImagen = con.consultaImagenBD(rowData.getId());
+        String direccionImg;
+        
+        if( urlImagen!=null) {
+        	  direccionImg = "C:/xampp/htdocs/" + urlImagen;
+        }else {
+        	  direccionImg = "src/javafxtesis/images/icons8_User_50px_1.png";
+        }
+        FileInputStream input = new FileInputStream(direccionImg);
+        Image imagen = new Image(input);
+        this.foto.setImage(imagen);
+        this.foto.setVisible(true);
+	}
+
+	@FXML protected void cerrar(){
         Stage stage = (Stage)cerrar.getScene().getWindow();
         stage.close();
     }
@@ -187,6 +225,7 @@ public class SecondSceneController implements Initializable {
     }
       
     @FXML protected void addDB() throws SQLException{
+        /*<<<<<<< HEAD*/
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Alerta");
         alert.setHeaderText("Mejor prevenir que lamentar");
@@ -204,5 +243,23 @@ public class SecondSceneController implements Initializable {
             
             con.conexionDBnormal(nombre, last, ced, car, usuario, clave, 0);
         }
+
+  
+    	 Integer returnId = con.conexionDBnormal( this.nameText.getText().toString().trim(),this.apeText.getText().toString().trim(), 
+        		 this.cargoText.getText().toString().trim(),  this.userText.getText().toString().trim().toLowerCase(), 
+        		 this.passText.getText().toString().trim().toLowerCase(), this.cedText.getText().toString().trim());
+        
+       people.add(new Person(returnId.toString(),
+        		this.nameText.getText().toString().trim(),
+        		this.apeText.getText().toString().trim(),
+        		 this.cargoText.getText().toString().trim(),
+        		 this.userText.getText().toString().trim().toLowerCase(),
+        		 this.passText.getText().toString().trim().toLowerCase(),
+        		 this.cedText.getText().toString().trim())
+        	);
+        
+        tabla.setItems(people);   
     }
+  
+    
 }

@@ -12,6 +12,10 @@
 	<classpathentry kind="lib" path="dist/lib/mysql-connector-java-5.1.45-bin.jar"/>
 	<classpathentry kind="lib" path="dist/lib/opencv-341.jar"/>
 	<classpathentry kind="lib" path="dist/lib/opencv.jar"/>
-	<classpathentry kind="lib" path="dist/run1182286587/JavaFXTesis.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/javaFX3/dist/JavaFXTesis.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="javaFX3/dist/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
