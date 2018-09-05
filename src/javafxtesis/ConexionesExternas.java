@@ -117,37 +117,43 @@ public class ConexionesExternas {
         }
     }
     
-    protected void conexionDBnormal(String nombre, String apellido, String cargo, String user, String pass, int perfil) throws SQLException {
+    protected int conexionDBnormal(String nombre, String apellido, String cargo, String user, String pass, String cedula) throws SQLException {
+    	int perfil =0;
+    	int id = 0;
         try {
             /*
             * Conexion con la DB
             */
-            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tesis","root","");
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tesis_sistemadeseguridad","root","");
             /*
             * Creamos el estado de la conexion
             */
             myStmt = myConn.createStatement();
-			
-            myStmt.executeUpdate("INSERT INTO empleados ("
+            
+            myRs = myStmt.executeQuery("select * from nivel where cargo="+" '"+cargo+"'");		
+            while(myRs.next()) {
+                perfil = myRs.getInt("id");
+            }
+            
+          
+            myStmt.executeUpdate("INSERT INTO empleado ("
                     +"nombre, "
                     +"apellido, "
-                    +"cargo, "
-                    +"user, "
-                    +"clave, "
-                    +"perfil)"
+                    +"acceso, "
+                    +"usuario, "
+                    +"password, "
+                    +"cedula, "
+                    +"nivel_id)"
                     +"VALUES ("
-                    + "'"+nombre+"','"+apellido+"','"+cargo+"','"+user+"','"+pass+"','"+perfil+"')");
-            /*
-            * Ejecuto el query
-            */
-            myRs = myStmt.executeQuery("select * from empleados where id="+1);
-            /*
-            * Proceso el resultado
-            */
+                    + "'"+nombre+"','"+apellido+"','"+0+"','"+user+"','"+pass+"','"+cedula+"','"+perfil+"')");
+            
+            myRs = myStmt.executeQuery("select * from empleado order by id desc limit 1");		
             while(myRs.next()) {
-                System.out.println(myRs.getString("nombre")+ ", "+myRs.getString("apellido")+", "+myRs.getString("cargo"));
+                id = myRs.getInt("id");
             }
+            
         }
+        
         catch (Exception exc) {
             exc.printStackTrace();
         }
@@ -162,6 +168,7 @@ public class ConexionesExternas {
                 myConn.close();
             }
         }
+        return id;
     }
     
     protected void conexionTabla(TableView<Person> list,  ObservableList<Person> items) throws SQLException {
@@ -178,11 +185,10 @@ public class ConexionesExternas {
             		" FROM tesis_sistemadeseguridad.nivel niv" + 
             		" JOIN tesis_sistemadeseguridad.empleado emp ON (niv.id = emp.nivel_id)");
             while (myRs.next()) {
-		items.add(new Person(myRs.getString("emp.id"), myRs.getString("emp.nombre"), myRs.getString("emp.apellido"), 
+            	
+            	items.add(new Person(myRs.getString("emp.id"), myRs.getString("emp.nombre"), myRs.getString("emp.apellido"), 
 				 myRs.getString("niv.cargo"), myRs.getString("emp.usuario"), myRs.getString("emp.password"),myRs.getString("emp.cedula")));
-                
-                System.out.println("PRUEBA");
-		}
+                }
             }
         catch (SQLException e) {
 	}
@@ -242,7 +248,7 @@ public class ConexionesExternas {
 
             myStmt = myConn.createStatement();
             
-            myRs = myStmt.executeQuery("select * from empleados order by id desc limit 1");		
+            myRs = myStmt.executeQuery("select * from empleado order by id desc limit 1");		
             while(myRs.next()) {
                 id = myRs.getInt("id");
             }

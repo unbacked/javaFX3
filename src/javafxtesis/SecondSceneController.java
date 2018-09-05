@@ -83,7 +83,8 @@ public class SecondSceneController implements Initializable {
 	
     //Objeto para conexiones
     ConexionesExternas con = new ConexionesExternas();
-
+   
+    
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         idColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("id"));
@@ -186,7 +187,23 @@ public class SecondSceneController implements Initializable {
         this.nuevo.setVisible(false);
     }
       
-    @FXML protected void addDB(){
+    @FXML protected void addDB() throws SQLException{
+  
+    	 Integer returnId = con.conexionDBnormal( this.nameText.getText().toString().trim(),this.apeText.getText().toString().trim(), 
+        		 this.cargoText.getText().toString().trim(),  this.userText.getText().toString().trim().toLowerCase(), 
+        		 this.passText.getText().toString().trim().toLowerCase(), this.cedText.getText().toString().trim());
         
+       people.add(new Person(returnId.toString(),
+        		this.nameText.getText().toString().trim(),
+        		this.apeText.getText().toString().trim(),
+        		 this.cargoText.getText().toString().trim(),
+        		 this.userText.getText().toString().trim().toLowerCase(),
+        		 this.passText.getText().toString().trim().toLowerCase(),
+        		 this.cedText.getText().toString().trim())
+        	);
+        
+        
+        tabla.setItems(people);
+       
     }
 }
