@@ -116,9 +116,6 @@ public class ConexionesExternas {
             }
         }
     }
-    
-
-    protected void conexionDBnormal(String nombre, String apellido, String cedula, String cargo, String user, String pass, int perfil) throws SQLException {
 
     protected int conexionDBnormal(String nombre, String apellido, String cargo, String user, String pass, String cedula) throws SQLException {
     	int perfil = 0;
@@ -142,13 +139,13 @@ public class ConexionesExternas {
             myStmt.executeUpdate("INSERT INTO empleado ("
                     +"nombre, "
                     +"apellido, "
-                    + "cedula, "
-                    +"cargo, "
-                    +"user, "
-                    +"clave, "
-                    +"perfil)"
+                    +"acceso, "
+                    +"usuario, "
+                    +"password, "
+                    +"cedula, "
+                    +"nivel_id)"
                     +"VALUES ("
-                    + "'"+nombre+"','"+apellido+"','"+cedula+"','"+cargo+"','"+user+"','"+pass+"','"+perfil+"')");
+                    + "'"+nombre+"','"+apellido+"','"+0+"','"+user+"','"+pass+"','"+cedula+"','"+perfil+"')");
             
             myRs = myStmt.executeQuery("select * from empleado order by id desc limit 1");		
 

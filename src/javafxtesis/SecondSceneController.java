@@ -225,7 +225,7 @@ public class SecondSceneController implements Initializable {
     }
       
     @FXML protected void addDB() throws SQLException{
-        /*<<<<<<< HEAD*/
+
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Alerta");
         alert.setHeaderText("Mejor prevenir que lamentar");
@@ -241,7 +241,7 @@ public class SecondSceneController implements Initializable {
             String usuario = this.userText.toString();
             String clave = this.passText.toString();
             
-            con.conexionDBnormal(nombre, last, ced, car, usuario, clave, 0);
+            //con.conexionDBnormal(nombre, last, ced, car, usuario, clave, 0);
         }
 
   
