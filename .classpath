@@ -2,21 +2,15 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/NetBeansProjects/JavaFXTesis/src/javafxtesis/JavaFXTesis.jar"/>
-	<classpathentry kind="lib" path="dist/lib/apache-commons-net.jar"/>
-	<classpathentry kind="lib" path="dist/lib/ffmpeg.jar"/>
-	<classpathentry kind="lib" path="dist/lib/javacpp.jar"/>
-	<classpathentry kind="lib" path="dist/lib/javacv-platform.jar"/>
-	<classpathentry kind="lib" path="dist/lib/javacv.jar"/>
-	<classpathentry kind="lib" path="dist/lib/jfoenix-8.0.7.jar"/>
-	<classpathentry kind="lib" path="dist/lib/mysql-connector-java-5.1.45-bin.jar"/>
-	<classpathentry kind="lib" path="dist/lib/opencv-341.jar"/>
-	<classpathentry kind="lib" path="dist/lib/opencv.jar"/>
-	<classpathentry kind="lib" path="C:/Users/USER/git/javaFX3/dist/JavaFXTesis.jar">
-		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="javaFX3/dist/lib"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/TESIS/Jar/apache-commons-net.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/TESIS/Jar/ffmpeg.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/TESIS/Jar/javacpp.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/TESIS/Jar/javacv-platform.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/TESIS/Jar/javacv.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/TESIS/Jar/jfoenix-8.0.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/TESIS/Jar/mysql-connector-java-5.1.45-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/TESIS/opencv/build/java/opencv-341.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/TESIS/Jar/opencv.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Apache Conectors"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ffmpeg"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaCPP"/>
