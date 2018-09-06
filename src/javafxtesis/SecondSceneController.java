@@ -181,7 +181,7 @@ public class SecondSceneController implements Initializable {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Alerta");
         alert.setHeaderText("Mejor prevenir que lamentar");
-        alert.setContentText("Esta seguro de que desea eliminar a este usuario?");
+        alert.setContentText("¿Esta seguro de que desea eliminar a este usuario?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
@@ -225,6 +225,25 @@ public class SecondSceneController implements Initializable {
     }
       
     @FXML protected void addDB() throws SQLException{
+
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Alerta");
+        alert.setHeaderText("Mejor prevenir que lamentar");
+        alert.setContentText("¿Esta seguro de que desea agregar un nuevo usuario?");
+        
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == ButtonType.OK){
+            
+            String nombre = this.nameText.toString();
+            String last = this.apeText.toString();
+            String ced = this.cedText.toString();
+            String car = this.cargoText.toString();
+            String usuario = this.userText.toString();
+            String clave = this.passText.toString();
+            
+            //con.conexionDBnormal(nombre, last, ced, car, usuario, clave, 0);
+        }
+
   
     	 Integer returnId = con.conexionDBnormal( this.nameText.getText().toString().trim(),this.apeText.getText().toString().trim(), 
         		 this.cargoText.getText().toString().trim(),  this.userText.getText().toString().trim().toLowerCase(), 

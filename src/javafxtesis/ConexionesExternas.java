@@ -116,10 +116,11 @@ public class ConexionesExternas {
             }
         }
     }
-    
+
     protected int conexionDBnormal(String nombre, String apellido, String cargo, String user, String pass, String cedula) throws SQLException {
-    	int perfil =0;
+    	int perfil = 0;
     	int id = 0;
+
         try {
             /*
             * Conexion con la DB
@@ -135,7 +136,6 @@ public class ConexionesExternas {
                 perfil = myRs.getInt("id");
             }
             
-          
             myStmt.executeUpdate("INSERT INTO empleado ("
                     +"nombre, "
                     +"apellido, "
@@ -148,6 +148,7 @@ public class ConexionesExternas {
                     + "'"+nombre+"','"+apellido+"','"+0+"','"+user+"','"+pass+"','"+cedula+"','"+perfil+"')");
             
             myRs = myStmt.executeQuery("select * from empleado order by id desc limit 1");		
+
             while(myRs.next()) {
                 id = myRs.getInt("id");
             }
