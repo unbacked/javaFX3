@@ -234,32 +234,41 @@ public class SecondSceneController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if(result.get() == ButtonType.OK){
             
-            String nombre = this.nameText.toString();
-            String last = this.apeText.toString();
-            String ced = this.cedText.toString();
-            String car = this.cargoText.toString();
-            String usuario = this.userText.toString();
-            String clave = this.passText.toString();
+            String nombre = this.nameText.getText().trim();
+            String last = this.apeText.getText().trim();
+            String ced = this.cedText.getText().trim();
+            String car = this.cargoText.getText().trim().toLowerCase();
+            String usuario = this.userText.getText().trim().toLowerCase();
+            String clave = this.passText.getText().trim().toLowerCase();
             
-            //con.conexionDBnormal(nombre, last, ced, car, usuario, clave, 0);
-        }
-
-  
-    	 Integer returnId = con.conexionDBnormal( this.nameText.getText().toString().trim(),this.apeText.getText().toString().trim(), 
-        		 this.cargoText.getText().toString().trim(),  this.userText.getText().toString().trim().toLowerCase(), 
-        		 this.passText.getText().toString().trim().toLowerCase(), this.cedText.getText().toString().trim());
-        
-       people.add(new Person(returnId.toString(),
-        		this.nameText.getText().toString().trim(),
-        		this.apeText.getText().toString().trim(),
-        		 this.cargoText.getText().toString().trim(),
-        		 this.userText.getText().toString().trim().toLowerCase(),
-        		 this.passText.getText().toString().trim().toLowerCase(),
-        		 this.cedText.getText().toString().trim())
-        	);
-        
-        tabla.setItems(people);   
+            Integer returnId = con.conexionDBnormal(nombre, last, ced, usuario, clave, car);
+            
+            people.add(new Person(returnId.toString(),
+                    nombre,
+                    last,
+                    car,
+                    usuario,
+                    clave,
+                    ced)
+            );
+           tabla.setItems(people);
+           
+           this.add.setVisible(false);
+           this.nuevo.setVisible(true);
+           this.nameText.setVisible(false);
+           this.apeText.setVisible(false);
+           this.cedText.setVisible(false);
+           this.cargoText.setVisible(false);
+           this.userText.setVisible(false);
+           this.passText.setVisible(false);
+           this.foto.setVisible(false);
+           
+           this.nameText.clear();
+           this.apeText.clear();
+           this.cedText.clear();
+           this.cargoText.clear();
+           this.userText.clear();
+           this.passText.clear();
+        }  
     }
-  
-    
 }

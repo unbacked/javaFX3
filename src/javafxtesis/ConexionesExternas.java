@@ -73,52 +73,9 @@ public class ConexionesExternas {
         return autorizacion;
     }
     
-    protected void conexionFTP(){
-        FTPClient Client = new FTPClient();
-	FileInputStream fis = null;
-		
-	try {
-            Client.connect("192.168.1.10");
-            
-            boolean login = Client.login("ftptesis", "vyos");
-            Client.enterLocalPassiveMode();
-            Client.setFileType(FTP.BINARY_FILE_TYPE);		
-            
-            if(login) {
-                System.out.println("Se ha conectado");
-            }
-            //Se crea un InputStream para el archivo que se va a cargar
-            File firstLocalFile = new File("C:/Users/DanielT/eclipse-workspace/JavaFXTesis/trainer/trainer.xml");
-			
-            String firstRemoteFile = "trainer.xml";
-            InputStream inputStream = new FileInputStream(firstLocalFile);
-			
-            System.out.println("Comenzando la carga del archivo");
-            boolean done = Client.storeFile(firstRemoteFile, inputStream);
-            inputStream.close();
-            if(done) {
-                System.out.println("El archivo se ha cargado");
-            }
-            Client.logout();
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            try {
-                if (fis != null) {
-                    fis.close();
-                }
-                Client.disconnect();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    protected int conexionDBnormal(String nombre, String apellido, String cargo, String user, String pass, String cedula) throws SQLException {
-    	int perfil = 0;
+    protected int conexionDBnormal(String nombre, String apellido,String cedula, String user, String pass, String cargo) throws SQLException {
+    	int idPerfil = 0;
+        int last = 0;
     	int id = 0;
 
         try {
@@ -131,28 +88,42 @@ public class ConexionesExternas {
             */
             myStmt = myConn.createStatement();
             
-            myRs = myStmt.executeQuery("select * from nivel where cargo="+" '"+cargo+"'");		
+            myRs = myStmt.executeQuery("select * from nivel where cargo="+" '"+cargo+"'");
+            
             while(myRs.next()) {
-                perfil = myRs.getInt("id");
+                System.out.println("ENTRANDO AL PRIMER WHILE");
+                idPerfil = myRs.getInt("id");
+                
+               /* if(idPerfil == 0){
+                    myRs = myStmt.executeQuery("select perfil from nivel order by id desc limit 1");
+                    while(myRs.next()){
+                        last = myRs.getInt("perfil");
+                    }
+                    
+                    myStmt.executeUpdate("insert into nivel (perfil, cargo) values ("+5+", '"+cargo+"')");
+                }*/
+                
+                /*else{
+                    last = idPerfil;
+                }*/
             }
             
             myStmt.executeUpdate("INSERT INTO empleado ("
                     +"nombre, "
                     +"apellido, "
+                    +"cedula, "
                     +"acceso, "
                     +"usuario, "
                     +"password, "
-                    +"cedula, "
                     +"nivel_id)"
                     +"VALUES ("
-                    + "'"+nombre+"','"+apellido+"','"+0+"','"+user+"','"+pass+"','"+cedula+"','"+perfil+"')");
+                    + "'"+nombre+"','"+apellido+"','"+cedula+"',"+0+",'"+user+"','"+pass+"',"+last+")");
             
             myRs = myStmt.executeQuery("select * from empleado order by id desc limit 1");		
 
             while(myRs.next()) {
                 id = myRs.getInt("id");
-            }
-            
+            }    
         }
         
         catch (Exception exc) {
@@ -269,6 +240,50 @@ public class ConexionesExternas {
             }
         }	
         return id;
+    }
+    
+    protected void conexionFTP(){
+        FTPClient Client = new FTPClient();
+	FileInputStream fis = null;
+		
+	try {
+            Client.connect("192.168.1.10");
+            
+            boolean login = Client.login("ftptesis", "vyos");
+            Client.enterLocalPassiveMode();
+            Client.setFileType(FTP.BINARY_FILE_TYPE);		
+            
+            if(login) {
+                System.out.println("Se ha conectado");
+            }
+            //Se crea un InputStream para el archivo que se va a cargar
+            File firstLocalFile = new File("C:/Users/DanielT/eclipse-workspace/JavaFXTesis/trainer/trainer.xml");
+			
+            String firstRemoteFile = "trainer.xml";
+            InputStream inputStream = new FileInputStream(firstLocalFile);
+			
+            System.out.println("Comenzando la carga del archivo");
+            boolean done = Client.storeFile(firstRemoteFile, inputStream);
+            inputStream.close();
+            if(done) {
+                System.out.println("El archivo se ha cargado");
+            }
+            Client.logout();
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if (fis != null) {
+                    fis.close();
+                }
+                Client.disconnect();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
     
     protected String consultaImagenBD(String id) throws SQLException{
