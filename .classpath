@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="dist/JavaFXTesis.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/NetBeansProjects/JavaFXTesis/src/javafxtesis/JavaFXTesis.jar"/>
 	<classpathentry kind="lib" path="dist/lib/apache-commons-net.jar"/>
 	<classpathentry kind="lib" path="dist/lib/ffmpeg.jar"/>
 	<classpathentry kind="lib" path="dist/lib/javacpp.jar"/>
@@ -17,5 +17,13 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="javaFX3/dist/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Apache Conectors"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ffmpeg"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaCPP"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaCV"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaCVPlatform"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MySQL Conectors"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/openCV"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/openCVByte"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
