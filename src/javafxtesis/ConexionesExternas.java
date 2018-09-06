@@ -44,7 +44,9 @@ public class ConexionesExternas {
             /*
             * Proceso el resultado
             */
+            System.out.println(myRs.next());
             while(myRs.next()) {
+            	System.out.println("Entras");
                 String clave = myRs.getString("password");
                 String usuario = myRs.getString("usuario");
                 if(pass.contains(clave) && user.contains(usuario)) {
@@ -118,8 +120,9 @@ public class ConexionesExternas {
     }
     
     protected int conexionDBnormal(String nombre, String apellido, String cargo, String user, String pass, String cedula) throws SQLException {
-    	int perfil =0;
-    	int id = 0;
+    	int idPerfil = 0;
+        int last = 0;
+        int id=0;
         try {
             /*
             * Conexion con la DB
@@ -130,9 +133,19 @@ public class ConexionesExternas {
             */
             myStmt = myConn.createStatement();
             
-            myRs = myStmt.executeQuery("select * from nivel where cargo="+" '"+cargo+"'");		
-            while(myRs.next()) {
-                perfil = myRs.getInt("id");
+            myRs = myStmt.executeQuery("select * from nivel where cargo="+" '"+cargo+"'");
+            
+            if(myRs.next()) {
+            	while(myRs.next()) {
+            		idPerfil = myRs.getInt("id");
+            	}
+            }else {
+            	myRs = myStmt.executeQuery("select perfil from nivel order by id desc limit 1");
+                 while(myRs.next()){
+                	 idPerfil = myRs.getInt("perfil");
+                 }
+                 idPerfil++;
+                 myStmt.executeUpdate("insert into nivel (perfil, cargo) values ('"+idPerfil+"', '"+cargo+"')");
             }
             
           
@@ -145,7 +158,7 @@ public class ConexionesExternas {
                     +"cedula, "
                     +"nivel_id)"
                     +"VALUES ("
-                    + "'"+nombre+"','"+apellido+"','"+0+"','"+user+"','"+pass+"','"+cedula+"','"+perfil+"')");
+                    + "'"+nombre+"','"+apellido+"','"+0+"','"+user+"','"+pass+"','"+cedula+"','"+idPerfil+"')");
             
             myRs = myStmt.executeQuery("select * from empleado order by id desc limit 1");		
             while(myRs.next()) {
