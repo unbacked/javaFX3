@@ -153,10 +153,12 @@ public class SecondSceneController implements Initializable {
     */
     @FXML protected void gestionUser(){
         this.datosUsuario.setVisible(true);
+        this.gestionEventos.setVisible(false);
     }
     
     @FXML protected void showEvents(){
-        
+        this.gestionEventos.setVisible(true);
+        this.datosUsuario.setVisible(false);
     }
     
     @FXML protected void atras(ActionEvent event) throws IOException{
