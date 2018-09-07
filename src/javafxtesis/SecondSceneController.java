@@ -54,6 +54,7 @@ public class SecondSceneController implements Initializable {
     */
     @FXML private Label mensaje;
     @FXML private VBox datosUsuario;
+    @FXML private VBox gestionEventos;
     @FXML private JFXButton add;
     @FXML private JFXButton delete;
     @FXML private JFXButton nuevo;
