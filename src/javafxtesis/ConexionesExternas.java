@@ -158,8 +158,19 @@ public class ConexionesExternas {
                 }
             }
         catch (SQLException e) {
-	}
-	list.setItems(items);
+        }
+        finally {
+            if (myRs != null) {
+                myRs.close();
+            }
+            if (myStmt != null) {
+                myStmt.close();
+            }
+            if (myConn != null) {
+                myConn.close();
+            }
+            list.setItems(items);
+        }
     }
     
     protected void eliminarUsuario(ObservableList<Person> items)throws SQLException {
@@ -310,5 +321,44 @@ public class ConexionesExternas {
          }
          return  direccionImagen;
     }
-    
+
+    protected void historialTabla(TableView<Person2> list,  ObservableList<Person2> items) throws SQLException {
+        try {
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tesis_sistemadeseguridad", "root", "");
+            }
+	catch (SQLException e) {
+            System.out.println(e.getMessage());
+            }
+        try {
+            myStmt = myConn.createStatement();
+            //Revisar nombre de las columnas porque pueden tener nombre diferente en tu BD trompe
+            myRs = myStmt.executeQuery("SELECT emp.nombre, emp.apellido, emp.cedula,  e.fecha_hora, img.nombreImagen" + 
+            		" FROM tesis_sistemadeseguridad.evento e" + 
+            		" JOIN tesis_sistemadeseguridad.empleado emp ON (e.empleado_id = emp.id)" + 
+            		" JOIN tesis_sistemadeseguridad.imagen img ON (img.empleado_id = emp.id)" + 
+            		" WHERE img.principal = 1 ORDER BY  e.id DESC");
+            
+            while (myRs.next()) {
+            	System.out.println("entra");
+            	System.out.println((myRs.getString("emp.nombre")));
+            	System.out.println((myRs.getString("emp.cedula")));
+            	items.add(new Person2(myRs.getString("emp.nombre"), myRs.getString("emp.apellido"), 
+            			myRs.getString("emp.cedula"), myRs.getString("e.fecha_hora"), myRs.getString("img.nombreImagen")));
+                }
+            }
+        catch (SQLException e) {
+        }
+        finally {
+            if (myRs != null) {
+                myRs.close();
+            }
+            if (myStmt != null) {
+                myStmt.close();
+            }
+            if (myConn != null) {
+                myConn.close();
+            }
+            list.setItems(items);
+        }
+    }
 }

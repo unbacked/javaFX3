@@ -72,7 +72,7 @@ public class SecondSceneController implements Initializable {
     @FXML private JFXTextField cargoText;
     @FXML private JFXTextField passText;
     
-    //Relacionado con la tabla
+    //Relacionado con las tablas
     @FXML private TableView <Person> tabla;
 	@FXML private TableColumn <Person, String> idColumn;
 	@FXML private TableColumn <Person, String> nomColumn;
@@ -82,6 +82,11 @@ public class SecondSceneController implements Initializable {
 	@FXML private TableColumn <Person, String> passColumn;
 	@FXML private TableColumn <Person, String> cedulaColumn;
 	private ObservableList<Person> people = FXCollections.observableArrayList();
+	@FXML private TableView <Person2> tabla2;
+	@FXML private TableColumn <Person2, String> nomColEvento;
+	@FXML private TableColumn <Person2, String> apeColEvento;
+	private ObservableList<Person2> people2 = FXCollections.observableArrayList();
+	 
 	
     //Objeto para conexiones
     ConexionesExternas con = new ConexionesExternas();
@@ -89,18 +94,11 @@ public class SecondSceneController implements Initializable {
     
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        idColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("id"));
-        nomColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("nombre"));
-        apColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("apellido"));
-        carColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("cargo"));
-        userColumn.setCellValueFactory(new PropertyValueFactory<Person,String>("user"));
-        passColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("pass"));
-        cedulaColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("cedula"));
-		
-        tabla.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		
+    	
+    	initTablas();
         try {
             con.conexionTabla(tabla, people);
+            con.historialTabla(tabla2, people2);
         }
         catch(SQLException e) {
             e.printStackTrace();
@@ -125,7 +123,24 @@ public class SecondSceneController implements Initializable {
         
     }
 	
-    private void datosUsuario(TableRow<Person> fila ) throws FileNotFoundException, SQLException {
+    private void initTablas() {
+    	idColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("id"));
+        nomColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("nombre"));
+        apColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("apellido"));
+        carColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("cargo"));
+        userColumn.setCellValueFactory(new PropertyValueFactory<Person,String>("user"));
+        passColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("pass"));
+        cedulaColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("cedula"));
+        
+        nomColEvento.setCellValueFactory(new PropertyValueFactory<Person2, String>("nombre"));
+        apeColEvento.setCellValueFactory(new PropertyValueFactory<Person2, String>("apellido"));
+        
+       
+        tabla.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        tabla2.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);	
+	}
+
+	private void datosUsuario(TableRow<Person> fila ) throws FileNotFoundException, SQLException {
     	Person rowData = fila.getItem();
         System.out.println(rowData);
         

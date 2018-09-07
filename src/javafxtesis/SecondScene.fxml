@@ -230,10 +230,10 @@
                      </font></Label>
                </children></AnchorPane>
             <Separator prefHeight="19.0" prefWidth="418.0" />
-            <TableView prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="tabla2" prefHeight="200.0" prefWidth="200.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="nomColEvento" prefWidth="206.0" text="nombre" />
+                <TableColumn fx:id="apeColEvento" prefWidth="211.0" text="apellido" />
               </columns>
             </TableView>
          </children>
