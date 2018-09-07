@@ -76,8 +76,7 @@ public class ConexionesExternas {
     protected int conexionDBnormal(String nombre, String apellido,String cedula, String user, String pass, String cargo) throws SQLException {
     	int idPerfil = 0;
         int last = 0;
-    	int id = 0;
-
+        int id=0;
         try {
             /*
             * Conexion con la DB
@@ -90,40 +89,36 @@ public class ConexionesExternas {
             
             myRs = myStmt.executeQuery("select * from nivel where cargo="+" '"+cargo+"'");
             
-            while(myRs.next()) {
-                System.out.println("ENTRANDO AL PRIMER WHILE");
-                idPerfil = myRs.getInt("id");
-                
-               /* if(idPerfil == 0){
-                    myRs = myStmt.executeQuery("select perfil from nivel order by id desc limit 1");
-                    while(myRs.next()){
-                        last = myRs.getInt("perfil");
-                    }
-                    
-                    myStmt.executeUpdate("insert into nivel (perfil, cargo) values ("+5+", '"+cargo+"')");
-                }*/
-                
-                /*else{
-                    last = idPerfil;
-                }*/
+            if(myRs.next()) {
+            	while(myRs.next()) {
+            		idPerfil = myRs.getInt("id");
+            	}
+            }else {
+            	myRs = myStmt.executeQuery("select perfil from nivel order by id desc limit 1");
+                 while(myRs.next()){
+                	 idPerfil = myRs.getInt("perfil");
+                 }
+                 idPerfil++;
+                 myStmt.executeUpdate("insert into nivel (perfil, cargo) values ('"+idPerfil+"', '"+cargo+"')");
             }
             
+          
             myStmt.executeUpdate("INSERT INTO empleado ("
                     +"nombre, "
                     +"apellido, "
-                    +"cedula, "
                     +"acceso, "
                     +"usuario, "
                     +"password, "
+                    +"cedula, "
                     +"nivel_id)"
                     +"VALUES ("
-                    + "'"+nombre+"','"+apellido+"','"+cedula+"',"+0+",'"+user+"','"+pass+"',"+last+")");
+                    + "'"+nombre+"','"+apellido+"','"+0+"','"+user+"','"+pass+"','"+cedula+"','"+idPerfil+"')");
             
             myRs = myStmt.executeQuery("select * from empleado order by id desc limit 1");		
-
             while(myRs.next()) {
                 id = myRs.getInt("id");
-            }    
+            }
+            
         }
         
         catch (Exception exc) {
@@ -141,7 +136,7 @@ public class ConexionesExternas {
             }
         }
         return id;
-    }
+        }
     
     protected void conexionTabla(TableView<Person> list,  ObservableList<Person> items) throws SQLException {
         try {

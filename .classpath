@@ -2,15 +2,15 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/TESIS/Jar/apache-commons-net.jar"/>
-	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/TESIS/Jar/ffmpeg.jar"/>
-	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/TESIS/Jar/javacpp.jar"/>
-	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/TESIS/Jar/javacv-platform.jar"/>
-	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/TESIS/Jar/javacv.jar"/>
-	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/TESIS/Jar/jfoenix-8.0.7.jar"/>
-	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/TESIS/Jar/mysql-connector-java-5.1.45-bin.jar"/>
-	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/TESIS/opencv/build/java/opencv-341.jar"/>
-	<classpathentry kind="lib" path="C:/Users/DanielT/Documents/TESIS/Jar/opencv.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/Desktop/tesis/Myjars/apache-commons-net.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/Desktop/tesis/Myjars/ffmpeg.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/Desktop/tesis/Myjars/javacpp.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/Desktop/tesis/Myjars/javacv-platform.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/Desktop/tesis/Myjars/javacv.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/Desktop/tesis/Myjars/jfoenix-8.0.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/Desktop/tesis/Myjars/mysql-connector-java-5.1.45-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/Desktop/tesis/opencv-3.4.1-1.4.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/Desktop/tesis/javacv-bin/javacv.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Apache Conectors"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ffmpeg"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaCPP"/>
