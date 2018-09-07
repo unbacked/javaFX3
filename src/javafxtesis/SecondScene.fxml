@@ -90,65 +90,73 @@
          <children>
             <AnchorPane prefHeight="166.0" prefWidth="400.0" style="-fx-background-color: #677DD6;">
                <children>
-                  <Text fx:id="name" fill="SNOW" layoutX="16.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre" visible="false" wrappingWidth="110.0">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="cedula" fill="SNOW" layoutX="16.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cedula" visible="false" wrappingWidth="110.0">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="user" fill="SNOW" layoutX="16.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario" visible="false" wrappingWidth="110.0">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="apellido" fill="SNOW" layoutX="143.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellido" visible="false" wrappingWidth="94.201171875">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="cargo" fill="SNOW" layoutX="145.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cargo" visible="false" wrappingWidth="56.10546875">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
+                  <AnchorPane fx:id="textPane" prefHeight="156.0" prefWidth="272.0" visible="false">
+                     <children>
+                        <Text fx:id="cargo" fill="SNOW" layoutX="14.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cargo" wrappingWidth="200.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="user" fill="SNOW" layoutX="136.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario" wrappingWidth="110.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="name" fill="SNOW" layoutX="14.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre" wrappingWidth="110.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="cedula" fill="SNOW" layoutX="14.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cedula" wrappingWidth="110.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="apellido" fill="SNOW" layoutX="136.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellido" wrappingWidth="94.201171875">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
                   <ImageView fx:id="foto" fitHeight="136.0" fitWidth="134.0" layoutX="273.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
                         <Image url="@images/icons8_User_50px_1.png" />
                      </image></ImageView>
-                  <JFXTextField fx:id="userText" focusColor="#bbbbbb" labelFloat="true" layoutX="7.0" layoutY="118.0" prefHeight="30.0" prefWidth="117.0" promptText="Usuario" unFocusColor="#bbbbbb" visible="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="cedText" focusColor="#bbbbbb" labelFloat="true" layoutX="7.0" layoutY="66.0" prefHeight="30.0" prefWidth="117.0" promptText="Cedula" unFocusColor="#bbbbbb" visible="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="nameText" focusColor="#bbbbbb" labelFloat="true" layoutX="7.0" layoutY="15.0" prefHeight="30.0" prefWidth="117.0" promptText="Nombre" unFocusColor="#bbbbbb" visible="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="apeText" focusColor="#bbbbbb" labelFloat="true" layoutX="145.0" layoutY="15.0" prefHeight="30.0" prefWidth="110.0" promptText="Apellido" unFocusColor="#bbbbbb" visible="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="cargoText" focusColor="#bbbbbb" labelFloat="true" layoutX="145.0" layoutY="66.0" prefHeight="30.0" prefWidth="110.0" promptText="Cargo" unFocusColor="#bbbbbb" visible="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="passText" focusColor="#bbbbbb" labelFloat="true" layoutX="145.0" layoutY="118.0" prefHeight="30.0" prefWidth="110.0" promptText="Clave" unFocusColor="#bbbbbb" visible="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXTextField>
+                  <AnchorPane fx:id="dataPane" prefHeight="162.0" prefWidth="272.0" visible="false">
+                     <children>
+                        <JFXTextField fx:id="apeText" focusColor="#bbbbbb" labelFloat="true" layoutX="136.0" layoutY="15.0" prefHeight="30.0" prefWidth="110.0" promptText="Apellido" unFocusColor="#bbbbbb">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXTextField fx:id="passText" focusColor="#bbbbbb" labelFloat="true" layoutX="136.0" layoutY="118.0" prefHeight="30.0" prefWidth="110.0" promptText="Clave" unFocusColor="#bbbbbb">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXTextField fx:id="cargoText" focusColor="#bbbbbb" labelFloat="true" layoutX="136.0" layoutY="66.0" prefHeight="30.0" prefWidth="110.0" promptText="Cargo" unFocusColor="#bbbbbb">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXTextField fx:id="nameText" focusColor="#bbbbbb" labelFloat="true" layoutX="14.0" layoutY="15.0" prefHeight="30.0" prefWidth="117.0" promptText="Nombre" unFocusColor="#bbbbbb">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXTextField fx:id="userText" focusColor="#bbbbbb" labelFloat="true" layoutX="14.0" layoutY="118.0" prefHeight="30.0" prefWidth="117.0" promptText="Usuario" unFocusColor="#bbbbbb">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXTextField fx:id="cedText" focusColor="#bbbbbb" labelFloat="true" layoutX="14.0" layoutY="66.0" prefHeight="30.0" prefWidth="117.0" promptText="Cedula" unFocusColor="#bbbbbb">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
             <Separator prefWidth="200.0" visible="false" />
@@ -211,30 +219,47 @@
             </TableView>
          </children>
       </VBox>
-      <VBox fx:id="gestionEventos" layoutX="215.0" layoutY="36.0" prefHeight="397.0" prefWidth="418.0" visible="false">
+      <VBox fx:id="gestionEventos" layoutX="215.0" layoutY="36.0" prefHeight="403.0" prefWidth="418.0" visible="false">
          <children>
-            <AnchorPane prefHeight="156.0" prefWidth="418.0">
+            <AnchorPane prefHeight="156.0" prefWidth="418.0" style="-fx-background-color: #677DD6;">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="164.0" layoutX="254.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label layoutX="21.0" layoutY="14.0" text="Label" textFill="SNOW">
-                     <font>
-                        <Font size="15.0" />
-                     </font></Label>
-                  <Label layoutX="21.0" layoutY="91.0" text="Label" textFill="SNOW">
-                     <font>
-                        <Font size="15.0" />
-                     </font></Label>
-                  <Label layoutX="141.0" layoutY="14.0" text="Label" textFill="SNOW">
-                     <font>
-                        <Font size="15.0" />
-                     </font></Label>
+                  <ImageView fx:id="foto2" fitHeight="150.0" fitWidth="153.0" layoutX="254.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
+                  <AnchorPane fx:id="evenPane" prefHeight="156.0" prefWidth="232.0" visible="false">
+                     <children>
+                        <Text fx:id="lastEvento" fill="SNOW" layoutX="116.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="nameEvento" fill="SNOW" layoutX="18.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="cedEvento" fill="SNOW" layoutX="18.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="fecEvento" fill="SNOW" layoutX="18.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
                </children></AnchorPane>
-            <Separator prefHeight="19.0" prefWidth="418.0" />
+            <Separator prefHeight="19.0" prefWidth="418.0" visible="false" />
             <TableView fx:id="tabla2" prefHeight="200.0" prefWidth="200.0">
               <columns>
                 <TableColumn fx:id="nomColEvento" prefWidth="206.0" text="nombre" />
                 <TableColumn fx:id="apeColEvento" prefWidth="211.0" text="apellido" />
+                  <TableColumn fx:id="cedColumnEvent" prefWidth="75.0" text="Cedula" />
+                  <TableColumn fx:id="fechaColumnEvent" prefWidth="75.0" text="Fecha" />
               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
          </children>
       </VBox>

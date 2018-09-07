@@ -14,12 +14,10 @@ public class Person2 {
 	    }
 		
 	    public String getNombre() {
-	    	System.out.println("Entra get"+ nombre);
 	        return nombre.get();
 	    }
 
 	    public void setNombre(String nombre2) {
-	    	System.out.println("Entra set "+ nombre2);
 	        this.nombre = new SimpleStringProperty(nombre2);
 	    }
 		

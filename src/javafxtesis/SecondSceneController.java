@@ -31,6 +31,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -52,7 +53,6 @@ public class SecondSceneController implements Initializable {
     /*
     Todo lo relacionado con la gestion de Usuarios
     */
-    @FXML private Label mensaje;
     @FXML private VBox datosUsuario;
     @FXML private VBox gestionEventos;
     @FXML private JFXButton add;
@@ -64,13 +64,21 @@ public class SecondSceneController implements Initializable {
     @FXML private Text apellido;
     @FXML private Text cargo;
     @FXML private Text pass;
+    @FXML private Text lastEvento;
+    @FXML private Text nameEvento;
+    @FXML private Text cedEvento;
+    @FXML private Text fecEvento;
     @FXML private ImageView foto;
+    @FXML private ImageView foto2;
     @FXML private JFXTextField userText;
     @FXML private JFXTextField cedText;
     @FXML private JFXTextField nameText;
     @FXML private JFXTextField apeText;
     @FXML private JFXTextField cargoText;
     @FXML private JFXTextField passText;
+    @FXML private AnchorPane dataPane;
+    @FXML private AnchorPane textPane;
+    @FXML private AnchorPane evenPane;
     
     //Relacionado con las tablas
     @FXML private TableView <Person> tabla;
@@ -82,9 +90,12 @@ public class SecondSceneController implements Initializable {
 	@FXML private TableColumn <Person, String> passColumn;
 	@FXML private TableColumn <Person, String> cedulaColumn;
 	private ObservableList<Person> people = FXCollections.observableArrayList();
+	
 	@FXML private TableView <Person2> tabla2;
 	@FXML private TableColumn <Person2, String> nomColEvento;
 	@FXML private TableColumn <Person2, String> apeColEvento;
+	@FXML private TableColumn <Person2, String> cedColumnEvent;
+	@FXML private TableColumn <Person2, String> fechaColumnEvent;
 	private ObservableList<Person2> people2 = FXCollections.observableArrayList();
 	 
 	
@@ -121,6 +132,22 @@ public class SecondSceneController implements Initializable {
             return row ;
         });
         
+        tabla2.setRowFactory( tv -> {
+            TableRow<Person2> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1 && (! row.isEmpty()) ) {
+                	try {
+						datosGestion(row);
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+                }
+            });
+            return row ;
+        });
+        
     }
 	
     private void initTablas() {
@@ -134,6 +161,8 @@ public class SecondSceneController implements Initializable {
         
         nomColEvento.setCellValueFactory(new PropertyValueFactory<Person2, String>("nombre"));
         apeColEvento.setCellValueFactory(new PropertyValueFactory<Person2, String>("apellido"));
+        cedColumnEvent.setCellValueFactory(new PropertyValueFactory<Person2, String>("cedula"));
+        fechaColumnEvent.setCellValueFactory(new PropertyValueFactory<Person2, String>("fechaHora"));
         
        
         tabla.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -141,14 +170,19 @@ public class SecondSceneController implements Initializable {
 	}
 
 	private void datosUsuario(TableRow<Person> fila ) throws FileNotFoundException, SQLException {
+		this.dataPane.setVisible(false);
+		this.textPane.setVisible(true);
+		this.add.setVisible(false);
+		this.nuevo.setVisible(true);
     	Person rowData = fila.getItem();
         System.out.println(rowData);
         
         String urlImagen = con.consultaImagenBD(rowData.getId());
         String direccionImg;
         
+        
         if( urlImagen!=null) {
-        	  direccionImg = "C:/xampp/htdocs/" + urlImagen;
+        	  direccionImg = "C:/xampp/htdocs/tesis/" + urlImagen;
         }else {
         	  direccionImg = "src/javafxtesis/images/icons8_User_50px_1.png";
         }
@@ -156,8 +190,46 @@ public class SecondSceneController implements Initializable {
         Image imagen = new Image(input);
         this.foto.setImage(imagen);
         this.foto.setVisible(true);
+        //Para los datos del usuario
+        this.name.setText(rowData.getNombre());
+        this.name.setVisible(true);
+        this.apellido.setText(rowData.getApellido());
+        this.apellido.setVisible(true);
+        this.cedula.setText(rowData.getCedula());
+        this.cedula.setVisible(true);
+        this.cargo.setText(rowData.getCargo());
+        this.cargo.setVisible(true);
+        this.user.setText(rowData.getUser());
+        this.user.setVisible(true);
 	}
 
+	private void datosGestion(TableRow<Person2> fila) throws FileNotFoundException, SQLException {
+		this.evenPane.setVisible(true);
+		
+    	Person2 rowData = fila.getItem();
+        System.out.println(rowData);
+        
+        String urlImagen = rowData.getNombreImagen();
+        String direccionImg;
+        
+        
+        if( urlImagen!=null) {
+        	  direccionImg = "C:/xampp/htdocs/tesis/" + urlImagen;
+        }else {
+        	  direccionImg = "src/javafxtesis/images/icons8_User_50px_1.png";
+        }
+        
+        FileInputStream input = new FileInputStream(direccionImg);
+        Image imagen = new Image(input);
+        this.foto2.setImage(imagen);
+        this.foto2.setVisible(true);
+        
+        this.cedEvento.setText(rowData.getCedula());
+        this.nameEvento.setText(rowData.getNombre());
+        this.lastEvento.setText(rowData.getApellido());
+        this.fecEvento.setText(rowData.getFechaHora());
+	}
+	
 	@FXML protected void cerrar(){
         Stage stage = (Stage)cerrar.getScene().getWindow();
         stage.close();
@@ -169,10 +241,17 @@ public class SecondSceneController implements Initializable {
     @FXML protected void gestionUser(){
         this.datosUsuario.setVisible(true);
         this.gestionEventos.setVisible(false);
+        this.dataPane.setVisible(false);
+        this.textPane.setVisible(false);
+        this.evenPane.setVisible(false);
+        this.foto.setVisible(false);
+        this.add.setVisible(false);
+        this.nuevo.setVisible(true);
     }
     
     @FXML protected void showEvents(){
         this.gestionEventos.setVisible(true);
+        this.evenPane.setVisible(true);
         this.datosUsuario.setVisible(false);
     }
     
@@ -218,14 +297,16 @@ public class SecondSceneController implements Initializable {
     @FXML protected void newUser() throws FileNotFoundException{
         FileInputStream input = new FileInputStream("src/javafxtesis/images/icons8_User_50px_1.png");
         Image imagen = new Image(input);
+        this.dataPane.setVisible(true);
+        this.nameText.clear();
+        this.apeText.clear();
+        this.cargoText.clear();
+        this.cedText.clear();
+        this.userText.clear();
+        this.passText.clear();
         
         this.add.setVisible(true);
-        this.apeText.setVisible(true);
-        this.nameText.setVisible(true);
-        this.userText.setVisible(true);
-        this.cedText.setVisible(true);
-        this.cargoText.setVisible(true);
-        this.passText.setVisible(true);
+        this.textPane.setVisible(false);
         
         String ape = this.apeText.toString();
         String nombre = this.nameText.toString();
@@ -272,14 +353,10 @@ public class SecondSceneController implements Initializable {
            tabla.setItems(people);
            
            this.add.setVisible(false);
+           this.dataPane.setVisible(false);;
            this.nuevo.setVisible(true);
-           this.nameText.setVisible(false);
-           this.apeText.setVisible(false);
-           this.cedText.setVisible(false);
-           this.cargoText.setVisible(false);
-           this.userText.setVisible(false);
-           this.passText.setVisible(false);
            this.foto.setVisible(false);
+           this.textPane.setVisible(false);
            
            this.nameText.clear();
            this.apeText.clear();
@@ -289,4 +366,10 @@ public class SecondSceneController implements Initializable {
            this.passText.clear();
         }  
     }
+    
+    /*
+     En la seccion de Eventos
+     */
+    
+    
 }

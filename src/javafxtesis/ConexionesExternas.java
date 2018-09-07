@@ -331,12 +331,13 @@ public class ConexionesExternas {
             }
         try {
             myStmt = myConn.createStatement();
+            
             //Revisar nombre de las columnas porque pueden tener nombre diferente en tu BD trompe
             myRs = myStmt.executeQuery("SELECT emp.nombre, emp.apellido, emp.cedula,  e.fecha_hora, img.nombreImagen" + 
             		" FROM tesis_sistemadeseguridad.evento e" + 
             		" JOIN tesis_sistemadeseguridad.empleado emp ON (e.empleado_id = emp.id)" + 
             		" JOIN tesis_sistemadeseguridad.imagen img ON (img.empleado_id = emp.id)" + 
-            		" WHERE img.principal = 1 ORDER BY  e.id DESC");
+            		" WHERE img.principal = 1 ORDER BY  e.idEvento DESC");
             
             while (myRs.next()) {
             	System.out.println("entra");
