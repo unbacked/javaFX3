@@ -61,7 +61,7 @@ public class FirstSceneController {
         // Se confirma que los campos esten llenos correctamente
         
         if(usuario.length()==0 && clave.length()==0){
-            this.mensaje.setText("Debe colocar Usuario y ContraseÃ±a");
+            this.mensaje.setText("Debe colocar Usuario y Contraseña");
             this.passText.clear();
             this.userText.clear();
         }
@@ -70,7 +70,7 @@ public class FirstSceneController {
             this.passText.clear();
         }
         else if(clave.length()==0){
-            this.mensaje.setText("Debe colocar una contraseÃ±a");
+            this.mensaje.setText("Debe colocar una contraseña");
             this.userText.clear();
         }
         else {
@@ -78,7 +78,6 @@ public class FirstSceneController {
             acceso = con.conexionAdmin(usuario, clave);
             
             //Se confirma de que en realidad se un administrador
-            
             if (acceso){
                 Parent loader = FXMLLoader.load(getClass().getResource("SecondScene.fxml"));
                 Scene menu = new Scene(loader);
