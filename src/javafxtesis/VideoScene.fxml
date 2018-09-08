@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="462.0" prefWidth="650.0" style="-fx-background-color: #2A3048;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxtesis.VideoSceneController">
+   <children>
+      <AnchorPane prefHeight="462.0" prefWidth="200.0" style="-fx-background-color: #677DD6;">
+         <children>
+            <Label fx:id="titulo" layoutX="45.0" layoutY="25.0" text="FaceSecurity" textFill="SNOW">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <VBox layoutY="118.0" prefHeight="113.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="mensaje" alignment="CENTER" prefHeight="48.0" prefWidth="200.0" text="Reconocimiento Facial" textFill="SNOW">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <JFXButton fx:id="captura" buttonType="RAISED" prefHeight="48.0" prefWidth="200.0" ripplerFill="#ab2727" text="Captura de Video" textFill="#bbbbbb">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="18.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icons8_Settings_50px_2.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <Label fx:id="cerrar" layoutX="622.0" layoutY="6.0" onMouseClicked="#cerrar" text="X" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="frames" fitHeight="329.0" fitWidth="311.0" layoutX="271.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

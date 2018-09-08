@@ -50,9 +50,8 @@ public class SecondSceneController implements Initializable {
     @FXML private JFXButton eventos;
     @FXML private JFXButton trainer;
     @FXML private JFXButton salir;
-    /*
-    Todo lo relacionado con la gestion de Usuarios
-    */
+    
+    //Todo lo relacionado con la gestion de Usuarios
     @FXML private VBox datosUsuario;
     @FXML private VBox gestionEventos;
     @FXML private JFXButton add;
@@ -102,7 +101,6 @@ public class SecondSceneController implements Initializable {
     //Objeto para conexiones
     ConexionesExternas con = new ConexionesExternas();
    
-    
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
     	
@@ -168,8 +166,54 @@ public class SecondSceneController implements Initializable {
         tabla.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tabla2.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);	
 	}
-
-	private void datosUsuario(TableRow<Person> fila ) throws FileNotFoundException, SQLException {
+	
+	@FXML protected void cerrar(){
+        Stage stage = (Stage)cerrar.getScene().getWindow();
+        stage.close();
+    }
+    
+    /*
+    Menu General
+    */
+    @FXML protected void gestionUser(){
+        this.datosUsuario.setVisible(true);
+        this.gestionEventos.setVisible(false);
+        this.dataPane.setVisible(false);
+        this.textPane.setVisible(false);
+        this.evenPane.setVisible(false);
+        this.foto.setVisible(false);
+        this.add.setVisible(false);
+        this.nuevo.setVisible(true);
+    }
+    
+    @FXML protected void showEvents(){
+        this.gestionEventos.setVisible(true);
+        this.evenPane.setVisible(true);
+        this.datosUsuario.setVisible(false);
+        this.cedEvento.setText(null);
+        this.nameEvento.setText(null);
+        this.fecEvento.setText(null);
+        this.lastEvento.setText(null);
+        this.foto2.setVisible(false);
+    }
+    
+    @FXML protected void atras(ActionEvent event) throws IOException{
+        Parent loader = FXMLLoader.load(getClass().getResource("FirstScene.fxml"));
+        Scene inicio = new Scene(loader);
+        
+        Stage window;
+        window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        
+        window.setScene(inicio);
+        window.show();
+    }
+    
+    @FXML protected void entrenar(){
+        Thread hilo = new Thread(new TrainingHilo());
+        hilo.start();
+    }
+    
+    private void datosUsuario(TableRow<Person> fila ) throws FileNotFoundException, SQLException {
 		this.dataPane.setVisible(false);
 		this.textPane.setVisible(true);
 		this.add.setVisible(false);
@@ -202,74 +246,6 @@ public class SecondSceneController implements Initializable {
         this.user.setText(rowData.getUser());
         this.user.setVisible(true);
 	}
-
-	private void datosGestion(TableRow<Person2> fila) throws FileNotFoundException, SQLException {
-		this.evenPane.setVisible(true);
-		
-    	Person2 rowData = fila.getItem();
-        System.out.println(rowData);
-        
-        String urlImagen = rowData.getNombreImagen();
-        String direccionImg;
-        
-        
-        if( urlImagen!=null) {
-        	  direccionImg = "C:/xampp/htdocs/tesis/" + urlImagen;
-        }else {
-        	  direccionImg = "src/javafxtesis/images/icons8_User_50px_1.png";
-        }
-        
-        FileInputStream input = new FileInputStream(direccionImg);
-        Image imagen = new Image(input);
-        this.foto2.setImage(imagen);
-        this.foto2.setVisible(true);
-        
-        this.cedEvento.setText(rowData.getCedula());
-        this.nameEvento.setText(rowData.getNombre());
-        this.lastEvento.setText(rowData.getApellido());
-        this.fecEvento.setText(rowData.getFechaHora());
-	}
-	
-	@FXML protected void cerrar(){
-        Stage stage = (Stage)cerrar.getScene().getWindow();
-        stage.close();
-    }
-    
-    /*
-    Menu General
-    */
-    @FXML protected void gestionUser(){
-        this.datosUsuario.setVisible(true);
-        this.gestionEventos.setVisible(false);
-        this.dataPane.setVisible(false);
-        this.textPane.setVisible(false);
-        this.evenPane.setVisible(false);
-        this.foto.setVisible(false);
-        this.add.setVisible(false);
-        this.nuevo.setVisible(true);
-    }
-    
-    @FXML protected void showEvents(){
-        this.gestionEventos.setVisible(true);
-        this.evenPane.setVisible(true);
-        this.datosUsuario.setVisible(false);
-    }
-    
-    @FXML protected void atras(ActionEvent event) throws IOException{
-        Parent loader = FXMLLoader.load(getClass().getResource("FirstScene.fxml"));
-        Scene inicio = new Scene(loader);
-        
-        Stage window;
-        window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        
-        window.setScene(inicio);
-        window.show();
-    }
-    
-    @FXML protected void entrenar(){
-        Thread hilo = new Thread(new TrainingHilo());
-        hilo.start();
-    }
     
     /*
     En gestion de Usuarios
@@ -370,6 +346,31 @@ public class SecondSceneController implements Initializable {
     /*
      En la seccion de Eventos
      */
-    
+    private void datosGestion(TableRow<Person2> fila) throws FileNotFoundException, SQLException {
+		this.evenPane.setVisible(true);
+		
+    	Person2 rowData = fila.getItem();
+        System.out.println(rowData);
+        
+        String urlImagen = rowData.getNombreImagen();
+        String direccionImg;
+        
+        
+        if( urlImagen!=null) {
+        	  direccionImg = "C:/xampp/htdocs/tesis/" + urlImagen;
+        }else {
+        	  direccionImg = "src/javafxtesis/images/icons8_User_50px_1.png";
+        }
+        
+        FileInputStream input = new FileInputStream(direccionImg);
+        Image imagen = new Image(input);
+        this.foto2.setImage(imagen);
+        this.foto2.setVisible(true);
+        
+        this.cedEvento.setText(rowData.getCedula());
+        this.nameEvento.setText(rowData.getNombre());
+        this.lastEvento.setText(rowData.getApellido());
+        this.fecEvento.setText(rowData.getFechaHora());
+	}
     
 }
