@@ -174,7 +174,7 @@
                               <Font size="14.0" />
                            </font>
                         </JFXTextField>
-                        <JFXPasswordField focusColor="#bbbbbb" labelFloat="true" layoutX="136.0" layoutY="118.0" prefHeight="25.0" prefWidth="110.0" promptText="Clave" unFocusColor="#bbbbbb">
+                        <JFXPasswordField fx:id="passText" focusColor="#bbbbbb" labelFloat="true" layoutX="136.0" layoutY="118.0" prefHeight="25.0" prefWidth="110.0" promptText="Clave" unFocusColor="#bbbbbb">
                            <font>
                               <Font size="14.0" />
                            </font></JFXPasswordField>
@@ -226,15 +226,14 @@
                </children>
             </HBox>
             <Separator prefWidth="200.0" visible="false" />
-            <TableView fx:id="tabla" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fffafa;">
+            <TableView fx:id="tabla" prefHeight="200.0" prefWidth="200.0">
               <columns>
-                <TableColumn fx:id="idColumn" prefWidth="29.0" resizable="false" text="ID" />
-                <TableColumn fx:id="nomColumn" prefWidth="65.0" resizable="false" text="Nombre" />
-                  <TableColumn fx:id="apColumn" prefWidth="76.0" resizable="false" text="Apellido" />
-                  <TableColumn fx:id="cedulaColumn" prefWidth="65.0" resizable="false" text="Cedula" />
-                  <TableColumn fx:id="carColumn" prefWidth="73.0" resizable="false" text="Cargo" />
-                  <TableColumn fx:id="userColumn" prefWidth="58.0" resizable="false" text="Usuario" />
-                  <TableColumn fx:id="passColumn" prefWidth="51.0" resizable="false" text="Clave" />
+                <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="nomColumn" prefWidth="75.0" text="Nombre" />
+                  <TableColumn fx:id="apColumn" prefWidth="75.0" text="Apellido" />
+                  <TableColumn fx:id="cedulaColumn" prefWidth="75.0" text="Cedula" />
+                  <TableColumn fx:id="carColumn" prefWidth="75.0" text="Cargo" />
+                  <TableColumn fx:id="userColumn" prefWidth="75.0" text="Usuario" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

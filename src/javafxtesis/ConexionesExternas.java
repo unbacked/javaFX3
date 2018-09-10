@@ -140,7 +140,7 @@ public class ConexionesExternas {
 
 				items.add(new Person(myRs.getString("emp.id"), myRs.getString("emp.nombre"),
 						myRs.getString("emp.apellido"), myRs.getString("niv.cargo"), myRs.getString("emp.usuario"),
-						myRs.getString("emp.password"), myRs.getString("emp.cedula")));
+						myRs.getString("emp.cedula")));
 			}
 		} catch (SQLException e) {
 		} finally {

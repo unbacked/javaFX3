@@ -9,15 +9,14 @@ package javafxtesis;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Person {
-    private SimpleStringProperty id, nombre, apellido, cargo, user, pass, cedula;
+    private SimpleStringProperty id, nombre, apellido, cargo, user, cedula;
 	
-    public Person(String id, String nombre, String apellido, String cargo, String user, String pass, String cedula) {
+    public Person(String id, String nombre, String apellido, String cargo, String user, String cedula) {
         this.id = new SimpleStringProperty(id);
         this.nombre = new SimpleStringProperty(nombre);
         this.apellido = new SimpleStringProperty(apellido);	
         this.cargo = new SimpleStringProperty(cargo);
         this.user = new SimpleStringProperty(user);
-        this.pass = new SimpleStringProperty(pass);
         this.cedula = new SimpleStringProperty(cedula);
     }
     
@@ -60,14 +59,6 @@ public class Person {
     public void setUser(String user) {
         this.user = new SimpleStringProperty(user);
     }
-	
-    public String getPass() {
-        return pass.get();
-    }
-	
-    public void setPass(String pass) {
-        this.pass = new SimpleStringProperty(pass);
-    }
     
     public String getCedula() {
     	 return cedula.get();
@@ -78,6 +69,6 @@ public class Person {
 	}
 	
     public String toString() {
-        return String.format("%s %s %s %s %s %s %s", id, nombre, apellido, cargo, user, pass, cedula);
+        return String.format("%s %s %s %s %s %s", id, nombre, apellido, cargo, user, cedula);
     }
 }

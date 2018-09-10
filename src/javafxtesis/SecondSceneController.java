@@ -87,7 +87,6 @@ public class SecondSceneController implements Initializable {
 	@FXML private TableColumn <Person, String> apColumn;
 	@FXML private TableColumn <Person, String> carColumn;
 	@FXML private TableColumn <Person, String> userColumn;
-	@FXML private TableColumn <Person, String> passColumn;
 	@FXML private TableColumn <Person, String> cedulaColumn;
 	private ObservableList<Person> people = FXCollections.observableArrayList();
 	
@@ -155,7 +154,6 @@ public class SecondSceneController implements Initializable {
         apColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("apellido"));
         carColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("cargo"));
         userColumn.setCellValueFactory(new PropertyValueFactory<Person,String>("user"));
-        passColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("pass"));
         cedulaColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("cedula"));
         
         nomColEvento.setCellValueFactory(new PropertyValueFactory<Person2, String>("nombre"));
@@ -274,6 +272,7 @@ public class SecondSceneController implements Initializable {
     @FXML protected void newUser() throws FileNotFoundException{
         FileInputStream input = new FileInputStream("src/javafxtesis/images/icons8_User_50px_1.png");
         Image imagen = new Image(input);
+        this.textPane.setVisible(false);
         this.dataPane.setVisible(true);
         this.nameText.clear();
         this.apeText.clear();
@@ -324,7 +323,6 @@ public class SecondSceneController implements Initializable {
                     last,
                     car,
                     usuario,
-                    clave,
                     ced)
             );
            tabla.setItems(people);
