@@ -28,7 +28,7 @@
                         <Insets left="10.0" />
                      </padding>
                   </Label>
-                  <JFXButton fx:id="captura" buttonType="RAISED" prefHeight="48.0" prefWidth="200.0" ripplerFill="#ab2727" text="Captura de Video" textFill="#bbbbbb">
+                  <JFXButton fx:id="captura" buttonType="RAISED" onAction="#startCamera" prefHeight="48.0" prefWidth="200.0" ripplerFill="#ab2727" text="Captura de Video" textFill="#bbbbbb">
                      <font>
                         <Font size="15.0" />
                      </font>

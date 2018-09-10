@@ -7,6 +7,7 @@ import java.net.URL;
 import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -74,7 +75,7 @@ public class SecondSceneController implements Initializable {
     @FXML private JFXTextField nameText;
     @FXML private JFXTextField apeText;
     @FXML private JFXTextField cargoText;
-    @FXML private JFXTextField passText;
+    @FXML private JFXPasswordField passText;
     @FXML private AnchorPane dataPane;
     @FXML private AnchorPane textPane;
     @FXML private AnchorPane evenPane;
@@ -99,7 +100,7 @@ public class SecondSceneController implements Initializable {
 	 
 	
     //Objeto para conexiones
-    ConexionesExternas con = new ConexionesExternas();
+    private ConexionesExternas con = new ConexionesExternas();
    
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -254,7 +255,7 @@ public class SecondSceneController implements Initializable {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Alerta");
         alert.setHeaderText("Mejor prevenir que lamentar");
-        alert.setContentText("Â¿Esta seguro de que desea eliminar a este usuario?");
+        alert.setContentText("¿Está seguro de que desea eliminar a este usuario?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){

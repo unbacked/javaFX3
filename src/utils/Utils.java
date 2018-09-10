@@ -1,4 +1,3 @@
-
 package utils;
 
 /**
@@ -23,11 +22,11 @@ public class Utils {
     public static Image mat2Image(Mat frame){
     try {
         return SwingFXUtils.toFXImage(matToBufferedImage(frame), null);
-    }
+        }
     catch(Exception e) {
         System.err.println("No se puede convertir el objeto Mat" + e);
         return null;
-    }
+        }
     }
     
     public static <T> void onFXThread(final ObjectProperty<T> property, final T value){

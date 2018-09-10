@@ -82,11 +82,6 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <Label fx:id="mensaje" layoutX="29.0" layoutY="166.0" textFill="#bbbbbb">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Label>
          </children>
       </AnchorPane>
    </children>

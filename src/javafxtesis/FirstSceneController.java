@@ -1,10 +1,14 @@
 package javafxtesis;
 
 import java.sql.SQLException;
+import java.util.Optional;
 
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import com.jfoenix.controls.JFXButton;
@@ -26,7 +30,6 @@ import javafx.scene.Scene;
 public class FirstSceneController {
     
     @FXML private Label titulo;
-    @FXML private Label mensaje;
     @FXML private Label sesion;
     @FXML private Label cerrar;
     @FXML private AnchorPane datos;
@@ -54,27 +57,41 @@ public class FirstSceneController {
     }
     
     @FXML protected void datosAdmin(ActionEvent event) throws SQLException, IOException {
+    	Alert alert = new Alert(AlertType.INFORMATION);
         String usuario = userText.getText().trim();
         String clave = passText.getText().trim();
         boolean acceso;
         
+    	alert.setTitle("Faltan campos");
+        alert.setHeaderText(null);
         // Se confirma que los campos esten llenos correctamente
         
         if(usuario.length()==0 && clave.length()==0){
-            this.mensaje.setText("Debe colocar Usuario y Contraseña");
-            this.passText.clear();
-            this.userText.clear();
+            alert.setContentText("Debe colocar su usuario y su contraseña");
+            
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+            	this.passText.clear();
+                this.userText.clear();
+            }
         }
         else if (usuario.length()==0){
-            this.mensaje.setText("Debe colocar un usuario");
-            this.passText.clear();
+        	alert.setContentText("Debe colorcar un usuario valido");
+        	Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+            	this.passText.clear();
+                this.userText.clear();
+            }
         }
         else if(clave.length()==0){
-            this.mensaje.setText("Debe colocar una contraseña");
-            this.userText.clear();
+        	alert.setContentText("Debe colorcar una contraseña valida");
+        	Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+            	this.passText.clear();
+                this.userText.clear();
+            }
         }
         else {
-            this.mensaje.setText("");
             acceso = con.conexionAdmin(usuario, clave);
             
             //Se confirma de que en realidad se un administrador
@@ -89,9 +106,12 @@ public class FirstSceneController {
                 window.show();
             }
             else {
-                this.mensaje.setText("No es un administrador");
-                this.passText.clear();
-                this.userText.clear();
+            	alert.setContentText("Inicio de sesion fallido, intente nuevamente");
+            	Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                	this.passText.clear();
+                    this.userText.clear();
+                }
             }
         }
     }

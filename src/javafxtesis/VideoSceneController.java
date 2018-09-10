@@ -1,5 +1,9 @@
 package javafxtesis;
 
+import java.util.concurrent.ScheduledExecutorService;
+
+import org.opencv.videoio.VideoCapture;
+
 import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.FXML;
@@ -14,5 +18,8 @@ public class VideoSceneController {
 	@FXML private JFXButton captura;
 	@FXML private ImageView frames;
 	
-	
+	private ScheduledExecutorService timer;
+	private VideoCapture capture = new VideoCapture();
+	private boolean camaraActiva = false;
+	private static int camaraId = 0;
 }

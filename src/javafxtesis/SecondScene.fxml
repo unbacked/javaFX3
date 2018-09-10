@@ -65,7 +65,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="salir" buttonType="RAISED" onAction="#atras" prefHeight="48.0" prefWidth="200.0" ripplerFill="#ab2727" text="Salir" textFill="#bbbbbb">
+                  <JFXButton fx:id="salir" buttonType="RAISED" onAction="#atras" prefHeight="48.0" prefWidth="200.0" ripplerFill="#ab2727" text="Cerrar Sesion" textFill="#bbbbbb">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -154,11 +154,6 @@
                               <Font size="14.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField fx:id="passText" focusColor="#bbbbbb" labelFloat="true" layoutX="136.0" layoutY="118.0" prefHeight="30.0" prefWidth="110.0" promptText="Clave" unFocusColor="#bbbbbb">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </JFXTextField>
                         <JFXTextField fx:id="cargoText" focusColor="#bbbbbb" labelFloat="true" layoutX="136.0" layoutY="66.0" prefHeight="30.0" prefWidth="110.0" promptText="Cargo" unFocusColor="#bbbbbb">
                            <font>
                               <Font size="14.0" />
@@ -179,6 +174,10 @@
                               <Font size="14.0" />
                            </font>
                         </JFXTextField>
+                        <JFXPasswordField focusColor="#bbbbbb" labelFloat="true" layoutX="136.0" layoutY="118.0" prefHeight="25.0" prefWidth="110.0" promptText="Clave" unFocusColor="#bbbbbb">
+                           <font>
+                              <Font size="14.0" />
+                           </font></JFXPasswordField>
                      </children>
                   </AnchorPane>
                </children>
