@@ -210,9 +210,11 @@ public class ConexionesExternas {
 		}
 		try {
 			myStmt = myConn.createStatement();
-			myRs = myStmt.executeQuery("SELECT emp.id, emp.nombre, emp.apellido, emp.cargo, emp.cedula, emp.usuario,"
-					+ " emp.password" + " FROM tesis_sistemadeseguridad.nivel niv"
+			myRs = myStmt.executeQuery("SELECT emp.id, emp.nombre, emp.apellido, emp.cargo, emp.cedula, emp.usuario"
+					+ " FROM tesis_sistemadeseguridad.nivel niv"
 					+ " JOIN tesis_sistemadeseguridad.empleado emp ON (niv.id = emp.nivel_id)");
+			
+			//SELECT id, nombre, apellido, cargo, cedula, usuario FROM tesis_sistemadeseguridad.empleado where nivel_id!=4
 			while (myRs.next()) {
 
 				items.add(new Person(myRs.getString("emp.id"), myRs.getString("emp.nombre"),

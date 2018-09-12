@@ -40,7 +40,7 @@ public class VideoSceneController {
 	private VideoCapture capture = new VideoCapture();
 	private boolean camaraActiva = false;
 	private static int camaraId = 0;
-	private CascadeClassifier faceCascade;
+	private CascadeClassifier faceCascade = new CascadeClassifier();
 	private int absoluteFaceSize;
 	private int cont = 0;
 	private int ultimoID = 0;
@@ -115,7 +115,7 @@ public class VideoSceneController {
 				//Si el cuadro no esta vacio seguimos
 				if(!frame.empty()) {
 					//Imgproc.cvtColor(frame, frame, Imgproc.COLOR_BGR2GRAY);
-					detectAndDisplay(frame);
+					this.detectAndDisplay(frame);
 				}
 			}
 			catch (Exception e) {
@@ -143,6 +143,9 @@ public class VideoSceneController {
 		}
 	}
 	
+	/*
+	 * Permite la conversion de la data de OpenCV a imagenes para JAVA
+	 */
 	private void updateImageView(ImageView view, Image image) {
 		Utils.onFXThread(view.imageProperty(), image);
 	}
@@ -150,36 +153,46 @@ public class VideoSceneController {
 	private void detectAndDisplay(Mat frame) {
 		MatOfRect faces = new MatOfRect();
 		Mat grayFrame = new Mat();
+		String primeraImg = "C:/xampp/htdocs/tesis/imgUsuarios/";
+		String filename = "C:/xampp/htdocs/tesis/ImgUsuarios/dataset/";
 		
-		// Conversion de imagen en escala de grises
+		//Conversion a escala de grises
 		Imgproc.cvtColor(frame, grayFrame, Imgproc.COLOR_BGR2GRAY);
-		// Ecualizador del histograma del frmae para mejorar resultados
+		
+		//Ecualizador del histograma para mejorar resultado
 		Imgproc.equalizeHist(grayFrame, grayFrame);
 		
 		//Minimo tamaño de la cara (20% de la altura del frame)
-		if(this.absoluteFaceSize == 0) {
+		if(this.absoluteFaceSize==0) {
 			int height = grayFrame.rows();
-			if(Math.round(height * 0.2f) >0) {
+			if(Math.round(height * 0.2f) > 0) {
 				this.absoluteFaceSize = Math.round(height * 0.2f);
 			}
 		}
-		this.faceCascade.load("resources/haarcascades/haarcascade_frontalface_alt.xml");
-		// Se detecta las caras
-		this.faceCascade.detectMultiScale(grayFrame, faces, 1.1, 2, 0 | Objdetect.CASCADE_SCALE_IMAGE,
-				new Size(this.absoluteFaceSize, this.absoluteFaceSize), new Size() );
 		
-		//Para pintar cada cuadro, que representa una cara 
+		//se carga el trainer de OpenCV y se detectan las caras
+		this.faceCascade.load("recursos/haarcascades/haarcascade_frontalface_alt.xml");
+		
+		this.faceCascade.detectMultiScale(grayFrame, faces, 1.1, 2, 0 | Objdetect.CASCADE_SCALE_IMAGE,
+				new Size(this.absoluteFaceSize, this.absoluteFaceSize), new Size());
+		
 		Rect[] facesArray = faces.toArray();
 		for(Rect rect: facesArray) {
 			Imgproc.rectangle(frame, rect.tl(), rect.br(), new Scalar(0, 255, 0), 3);
 			Rect rectCrop = new Rect(rect.x, rect.y, rect.width, rect.height);
 			Mat imageROI = new Mat(grayFrame, rectCrop);
 			
-			String filename = "dataset/"+ultimoID+"-"+cont+".png";
-			System.out.println(String.format("Writing %s", filename));
-			Imgcodecs.imwrite(filename, imageROI);
+			if(cont == 0) {
+				String name = primeraImg+ultimoID+"-"+cont+".jpg";
+				System.out.println(String.format("Writing %s", name));
+				Imgcodecs.imwrite(name, imageROI);
+			}
+			else {
+				String name = filename+ultimoID+"-"+cont+".jpg";
+				System.out.println(String.format("Writing %s", name));
+				Imgcodecs.imwrite(name, imageROI);
+			}
 			cont++;
 		}
 	}
-	
 }
