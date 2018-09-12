@@ -20,6 +20,9 @@ public class ConexionesExternas {
 	Connection myConn = null;
 	Statement myStmt = null;
 	ResultSet myRs = null;
+	String root = "jdbc:mysql://localhost:3306/tesis_sistemadeseguridad";
+	String usuario = "root";
+	String clave = "";
 
 	protected boolean conexionAdmin(String user, String pass) throws SQLException {
 		boolean autorizacion = false;
@@ -27,7 +30,7 @@ public class ConexionesExternas {
 			/*
 			 * Conexion con la DB
 			 */
-			myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tesis_sistemadeseguridad", "root", "");
+			myConn = DriverManager.getConnection(root, usuario, clave);
 			/*
 			 * Creamos el estado de la conexion
 			 */
@@ -67,6 +70,79 @@ public class ConexionesExternas {
 		}
 		return autorizacion;
 	}
+	
+	protected int lastId() throws SQLException {
+		int id = 0;
+
+		try {
+			myConn = DriverManager.getConnection(root, usuario, clave);
+
+			myStmt = myConn.createStatement();
+
+			myRs = myStmt.executeQuery("select * from empleado order by id desc limit 1");
+			while (myRs.next()) {
+				id = myRs.getInt("id");
+			}
+		} catch (Exception exc) {
+			exc.printStackTrace();
+		} finally {
+			if (myRs != null) {
+				myRs.close();
+			}
+			if (myStmt != null) {
+				myStmt.close();
+			}
+			if (myConn != null) {
+				myConn.close();
+			}
+		}
+		return id;
+	}
+	
+	protected void historialTabla(TableView<Person2> list, ObservableList<Person2> items) throws SQLException {
+		try {
+			myConn = DriverManager.getConnection(root, usuario, clave);
+		} 
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			myStmt = myConn.createStatement();
+
+			// Revisar nombre de las columnas porque pueden tener nombre diferente en tu BD
+			// trompe
+			myRs = myStmt.executeQuery("SELECT emp.nombre, emp.apellido, emp.cedula,  e.fecha_hora, img.nombreImagen"
+					+ " FROM tesis_sistemadeseguridad.evento e"
+					+ " JOIN tesis_sistemadeseguridad.empleado emp ON (e.empleado_id = emp.id)"
+					+ " JOIN tesis_sistemadeseguridad.imagen img ON (img.empleado_id = emp.id)"
+					+ " WHERE img.principal = 1 ORDER BY  e.idEvento DESC");
+
+			while (myRs.next()) {
+				System.out.println("entra");
+				System.out.println((myRs.getString("emp.nombre")));
+				System.out.println((myRs.getString("emp.cedula")));
+				items.add(new Person2(myRs.getString("emp.nombre"), myRs.getString("emp.apellido"),
+						myRs.getString("emp.cedula"), myRs.getString("e.fecha_hora"),
+						myRs.getString("img.nombreImagen")));
+			}
+		} catch (SQLException e) {
+		} finally {
+			if (myRs != null) {
+				myRs.close();
+			}
+			if (myStmt != null) {
+				myStmt.close();
+			}
+			if (myConn != null) {
+				myConn.close();
+			}
+			list.setItems(items);
+		}
+	}
+	
+	/*
+	 *Todavia falta por arreglar todo lo que esta abajo de esto
+	 */
 
 	protected int conexionDBnormal(String nombre, String apellido, String cedula, String user, String pass,
 			String cargo) throws SQLException {
@@ -127,8 +203,9 @@ public class ConexionesExternas {
 
 	protected void conexionTabla(TableView<Person> list, ObservableList<Person> items) throws SQLException {
 		try {
-			myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tesis_sistemadeseguridad", "root", "");
-		} catch (SQLException e) {
+			myConn = DriverManager.getConnection(root, usuario, clave);
+		} 
+		catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 		try {
@@ -142,8 +219,10 @@ public class ConexionesExternas {
 						myRs.getString("emp.apellido"), myRs.getString("niv.cargo"), myRs.getString("emp.usuario"),
 						myRs.getString("emp.cedula")));
 			}
-		} catch (SQLException e) {
-		} finally {
+		} 
+		catch (SQLException e) {
+		} 
+		finally {
 			if (myRs != null) {
 				myRs.close();
 			}
@@ -197,35 +276,7 @@ public class ConexionesExternas {
 			}
 		}
 	}
-
-	protected int lastId() throws SQLException {
-		int id = 0;
-
-		try {
-			myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tesis", "root", "");
-
-			myStmt = myConn.createStatement();
-
-			myRs = myStmt.executeQuery("select * from empleado order by id desc limit 1");
-			while (myRs.next()) {
-				id = myRs.getInt("id");
-			}
-		} catch (Exception exc) {
-			exc.printStackTrace();
-		} finally {
-			if (myRs != null) {
-				myRs.close();
-			}
-			if (myStmt != null) {
-				myStmt.close();
-			}
-			if (myConn != null) {
-				myConn.close();
-			}
-		}
-		return id;
-	}
-
+	
 	protected void conexionFTP() {
 		FTPClient Client = new FTPClient();
 		FileInputStream fis = null;
@@ -296,43 +347,4 @@ public class ConexionesExternas {
 		return direccionImagen;
 	}
 
-	protected void historialTabla(TableView<Person2> list, ObservableList<Person2> items) throws SQLException {
-		try {
-			myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tesis_sistemadeseguridad", "root", "");
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		try {
-			myStmt = myConn.createStatement();
-
-			// Revisar nombre de las columnas porque pueden tener nombre diferente en tu BD
-			// trompe
-			myRs = myStmt.executeQuery("SELECT emp.nombre, emp.apellido, emp.cedula,  e.fecha_hora, img.nombreImagen"
-					+ " FROM tesis_sistemadeseguridad.evento e"
-					+ " JOIN tesis_sistemadeseguridad.empleado emp ON (e.empleado_id = emp.id)"
-					+ " JOIN tesis_sistemadeseguridad.imagen img ON (img.empleado_id = emp.id)"
-					+ " WHERE img.principal = 1 ORDER BY  e.idEvento DESC");
-
-			while (myRs.next()) {
-				System.out.println("entra");
-				System.out.println((myRs.getString("emp.nombre")));
-				System.out.println((myRs.getString("emp.cedula")));
-				items.add(new Person2(myRs.getString("emp.nombre"), myRs.getString("emp.apellido"),
-						myRs.getString("emp.cedula"), myRs.getString("e.fecha_hora"),
-						myRs.getString("img.nombreImagen")));
-			}
-		} catch (SQLException e) {
-		} finally {
-			if (myRs != null) {
-				myRs.close();
-			}
-			if (myStmt != null) {
-				myStmt.close();
-			}
-			if (myConn != null) {
-				myConn.close();
-			}
-			list.setItems(items);
-		}
-	}
 }

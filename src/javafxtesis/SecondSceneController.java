@@ -32,6 +32,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -212,40 +213,6 @@ public class SecondSceneController implements Initializable {
         hilo.start();
     }
     
-    private void datosUsuario(TableRow<Person> fila ) throws FileNotFoundException, SQLException {
-		this.dataPane.setVisible(false);
-		this.textPane.setVisible(true);
-		this.add.setVisible(false);
-		this.nuevo.setVisible(true);
-    	Person rowData = fila.getItem();
-        System.out.println(rowData);
-        
-        String urlImagen = con.consultaImagenBD(rowData.getId());
-        String direccionImg;
-        
-        
-        if( urlImagen!=null) {
-        	  direccionImg = "C:/xampp/htdocs/tesis/" + urlImagen;
-        }else {
-        	  direccionImg = "src/javafxtesis/images/icons8_User_50px_1.png";
-        }
-        FileInputStream input = new FileInputStream(direccionImg);
-        Image imagen = new Image(input);
-        this.foto.setImage(imagen);
-        this.foto.setVisible(true);
-        //Para los datos del usuario
-        this.name.setText(rowData.getNombre());
-        this.name.setVisible(true);
-        this.apellido.setText(rowData.getApellido());
-        this.apellido.setVisible(true);
-        this.cedula.setText(rowData.getCedula());
-        this.cedula.setVisible(true);
-        this.cargo.setText(rowData.getCargo());
-        this.cargo.setVisible(true);
-        this.user.setText(rowData.getUser());
-        this.user.setVisible(true);
-	}
-    
     /*
     En gestion de Usuarios
     */
@@ -340,6 +307,51 @@ public class SecondSceneController implements Initializable {
            this.userText.clear();
            this.passText.clear();
         }  
+    }
+    
+    private void datosUsuario(TableRow<Person> fila ) throws FileNotFoundException, SQLException {
+		this.dataPane.setVisible(false);
+		this.textPane.setVisible(true);
+		this.add.setVisible(false);
+		this.nuevo.setVisible(true);
+    	Person rowData = fila.getItem();
+        System.out.println(rowData);
+        
+        String urlImagen = con.consultaImagenBD(rowData.getId());
+        String direccionImg;
+        
+        
+        if( urlImagen!=null) {
+        	  direccionImg = "C:/xampp/htdocs/tesis/" + urlImagen;
+        }else {
+        	  direccionImg = "src/javafxtesis/images/icons8_User_50px_1.png";
+        }
+        FileInputStream input = new FileInputStream(direccionImg);
+        Image imagen = new Image(input);
+        this.foto.setImage(imagen);
+        this.foto.setVisible(true);
+        //Para los datos del usuario
+        this.name.setText(rowData.getNombre());
+        this.name.setVisible(true);
+        this.apellido.setText(rowData.getApellido());
+        this.apellido.setVisible(true);
+        this.cedula.setText(rowData.getCedula());
+        this.cedula.setVisible(true);
+        this.cargo.setText(rowData.getCargo());
+        this.cargo.setVisible(true);
+        this.user.setText(rowData.getUser());
+        this.user.setVisible(true);
+	}
+    
+    @FXML protected void iniciarCaptura(MouseEvent event) throws IOException {
+    	Parent loader = FXMLLoader.load(getClass().getResource("VideoScene.fxml"));
+    	Scene video = new Scene(loader);
+    	
+    	Stage window;
+    	window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    	
+    	window.setScene(video);
+    	window.show();
     }
     
     /*

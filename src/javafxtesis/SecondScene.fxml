@@ -143,7 +143,7 @@
                         </Label>
                      </children>
                   </AnchorPane>
-                  <ImageView fx:id="foto" fitHeight="136.0" fitWidth="134.0" layoutX="273.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                  <ImageView fx:id="foto" fitHeight="136.0" fitWidth="134.0" layoutX="273.0" layoutY="13.0" onMouseClicked="#iniciarCaptura" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
                         <Image url="@images/icons8_User_50px_1.png" />
                      </image></ImageView>
