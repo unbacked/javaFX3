@@ -175,7 +175,7 @@ public class VideoSceneController {
 			Rect rectCrop = new Rect(rect.x, rect.y, rect.width, rect.height);
 			Mat imageROI = new Mat(grayFrame, rectCrop);
 			
-			String filename = "dataset/"+ultimoID+"-"+cont+".png";
+			String filename = "dataset/"+ultimoID+"-"+cont+".jpg";
 			System.out.println(String.format("Writing %s", filename));
 			Imgcodecs.imwrite(filename, imageROI);
 			cont++;

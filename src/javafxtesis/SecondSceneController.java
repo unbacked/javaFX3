@@ -1,6 +1,7 @@
 package javafxtesis;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.net.URL;
@@ -9,8 +10,11 @@ import java.io.IOException;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,12 +27,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -97,6 +104,11 @@ public class SecondSceneController implements Initializable {
 	@FXML private TableColumn <Person2, String> cedColumnEvent;
 	@FXML private TableColumn <Person2, String> fechaColumnEvent;
 	private ObservableList<Person2> people2 = FXCollections.observableArrayList();
+	
+	
+	//CONSTANTES
+	private static final String DIR_PRINCIPAL = "C:/xampp/htdocs/tesis/";
+	private static final String IMG_DEFAULT = "src/javafxtesis/images/icons8_User_50px_1.png";
 	 
 	
     //Objeto para conexiones
@@ -237,7 +249,7 @@ public class SecondSceneController implements Initializable {
     }
     
     @FXML protected void newUser() throws FileNotFoundException{
-        FileInputStream input = new FileInputStream("src/javafxtesis/images/icons8_User_50px_1.png");
+        FileInputStream input = new FileInputStream(IMG_DEFAULT);
         Image imagen = new Image(input);
         this.textPane.setVisible(false);
         this.dataPane.setVisible(true);
@@ -267,33 +279,42 @@ public class SecondSceneController implements Initializable {
     }
       
     @FXML protected void addDB() throws SQLException{
-
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Alerta");
-        alert.setHeaderText("Mejor prevenir que lamentar");
-        alert.setContentText("Â¿Esta seguro de que desea agregar un nuevo usuario?");
+    	TextInputDialog dialog = new TextInputDialog();
+        String nombre = this.nameText.getText().trim();
+        String last = this.apeText.getText().trim();
+        String ced = this.cedText.getText().trim();
+        String car = this.cargoText.getText().trim().toLowerCase();
+        String usuario = this.userText.getText().trim().toLowerCase();
+        String clave = this.passText.getText().trim().toLowerCase();
         
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+    	alert.setTitle("Nivel de privilegios");
+    	alert.setHeaderText("Admin tendrá toodos los permisos, seguridad podrá usar la app móvil y cualquiera solo quedará registrado");
+    	alert.setContentText("Escoja su opción");
+
+        ButtonType buttonTypeOne = new ButtonType("Admin");
+        ButtonType buttonTypeTwo = new ButtonType("Seguridad");
+        ButtonType buttonTypeThree = new ButtonType("Cualquiera");
+    
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeCancel);
         Optional<ButtonType> result = alert.showAndWait();
-        if(result.get() == ButtonType.OK){
-            
-            String nombre = this.nameText.getText().trim();
-            String last = this.apeText.getText().trim();
-            String ced = this.cedText.getText().trim();
-            String car = this.cargoText.getText().trim().toLowerCase();
-            String usuario = this.userText.getText().trim().toLowerCase();
-            String clave = this.passText.getText().trim().toLowerCase();
-            
-            Integer returnId = con.conexionDBnormal(nombre, last, ced, usuario, clave, car);
-            
-            people.add(new Person(returnId.toString(),
-                    nombre,
-                    last,
-                    car,
-                    usuario,
-                    ced)
-            );
-           tabla.setItems(people);
-           
+        if (result.get() == buttonTypeOne){
+        	 Integer returnId = con.conexionDBnormal(nombre, last, ced, usuario, clave, car,1);
+             people.add(new Person(returnId.toString(),nombre, last, car, usuario,ced));
+                tabla.setItems(people);
+        } else if (result.get() == buttonTypeTwo) {
+        	Integer returnId = con.conexionDBnormal(nombre, last, ced, usuario, clave, car,2);
+            people.add(new Person(returnId.toString(),nombre, last, car, usuario,ced));
+               tabla.setItems(people);
+        } else if (result.get() == buttonTypeThree) {
+        	Integer returnId = con.conexionDBnormal(nombre, last, ced, usuario, clave, car,3);
+            people.add(new Person(returnId.toString(),nombre, last, car, usuario,ced));
+               tabla.setItems(people);
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }
+             
            this.add.setVisible(false);
            this.dataPane.setVisible(false);;
            this.nuevo.setVisible(true);
@@ -306,7 +327,7 @@ public class SecondSceneController implements Initializable {
            this.cargoText.clear();
            this.userText.clear();
            this.passText.clear();
-        }  
+       
     }
     
     private void datosUsuario(TableRow<Person> fila ) throws FileNotFoundException, SQLException {
@@ -322,9 +343,9 @@ public class SecondSceneController implements Initializable {
         
         
         if( urlImagen!=null) {
-        	  direccionImg = "C:/xampp/htdocs/tesis/" + urlImagen;
+        	  direccionImg = DIR_PRINCIPAL + urlImagen;
         }else {
-        	  direccionImg = "src/javafxtesis/images/icons8_User_50px_1.png";
+        	  direccionImg = IMG_DEFAULT;
         }
         FileInputStream input = new FileInputStream(direccionImg);
         Image imagen = new Image(input);
@@ -368,9 +389,9 @@ public class SecondSceneController implements Initializable {
         
         
         if( urlImagen!=null) {
-        	  direccionImg = "C:/xampp/htdocs/tesis/" + urlImagen;
+        	  direccionImg = DIR_PRINCIPAL + urlImagen;
         }else {
-        	  direccionImg = "src/javafxtesis/images/icons8_User_50px_1.png";
+        	  direccionImg =  IMG_DEFAULT;
         }
         
         FileInputStream input = new FileInputStream(direccionImg);
