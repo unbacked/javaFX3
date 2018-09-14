@@ -44,6 +44,8 @@ public class VideoSceneController {
 	private int absoluteFaceSize;
 	private int cont = 0;
 	private int ultimoID = 0;
+	private static final String PRIMERA_IMG = "C:/xampp/htdocs/tesis/imgUsuarios/principal/";
+	private static final String FILENAME = "C:/xampp/htdocs/tesis/ImgUsuarios/dataset/";
 	
 	@FXML protected void cerrar() {
         Stage stage = (Stage)cerrar.getScene().getWindow();
@@ -153,8 +155,6 @@ public class VideoSceneController {
 	private void detectAndDisplay(Mat frame) {
 		MatOfRect faces = new MatOfRect();
 		Mat grayFrame = new Mat();
-		String primeraImg = "C:/xampp/htdocs/tesis/imgUsuarios/";
-		String filename = "C:/xampp/htdocs/tesis/ImgUsuarios/dataset/";
 		
 		//Conversion a escala de grises
 		Imgproc.cvtColor(frame, grayFrame, Imgproc.COLOR_BGR2GRAY);
@@ -177,28 +177,25 @@ public class VideoSceneController {
 				new Size(this.absoluteFaceSize, this.absoluteFaceSize), new Size());
 		
 		Rect[] facesArray = faces.toArray();
-		for(Rect rect: facesArray) {
-			Imgproc.rectangle(frame, rect.tl(), rect.br(), new Scalar(0, 255, 0), 3);
-			Rect rectCrop = new Rect(rect.x, rect.y, rect.width, rect.height);
-			Mat imageROI = new Mat(grayFrame, rectCrop);
-			
-<<<<<<< HEAD
-			String filename = "dataset/"+ultimoID+"-"+cont+".jpg";
-			System.out.println(String.format("Writing %s", filename));
-			Imgcodecs.imwrite(filename, imageROI);
-=======
-			if(cont == 0) {
-				String name = primeraImg+ultimoID+"-"+cont+".jpg";
-				System.out.println(String.format("Writing %s", name));
-				Imgcodecs.imwrite(name, imageROI);
+		while (cont <= 15) {
+			for(Rect rect: facesArray) {
+				Imgproc.rectangle(frame, rect.tl(), rect.br(), new Scalar(0, 255, 0), 3);
+				Rect rectCrop = new Rect(rect.x, rect.y, rect.width, rect.height);
+				Mat imageROI = new Mat(grayFrame, rectCrop);
+				
+				if(cont == 0) {
+					String name = PRIMERA_IMG+ultimoID+"-"+cont+".jpg";
+					System.out.println(String.format("Writing %s", name));
+					Imgcodecs.imwrite(name, imageROI);
+				}
+				else {
+					String name = FILENAME+ultimoID+"-"+cont+".jpg";
+					System.out.println(String.format("Writing %s", name));
+					Imgcodecs.imwrite(name, imageROI);
+				}
+
+				cont++;
 			}
-			else {
-				String name = filename+ultimoID+"-"+cont+".jpg";
-				System.out.println(String.format("Writing %s", name));
-				Imgcodecs.imwrite(name, imageROI);
-			}
->>>>>>> c1cdf628e9245e584564f54b5fca208e6e8fd7e9
-			cont++;
 		}
 	}
 }

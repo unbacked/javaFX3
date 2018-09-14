@@ -23,8 +23,9 @@ public class ConexionesExternas {
 	private static final String ROOT = "jdbc:mysql://localhost:3306/tesis_sistemadeseguridad";
 	private static final String USUARIO = "root";
 	private static final String CLAVE = "";
-	private static final String ELIMINAR_FOTO = "C:/Users/DanielT/eclipse-workspace/JavaFXTesis/dataset";
-	private static final String DIR_XML = "C:/Users/DanielT/eclipse-workspace/JavaFXTesis/trainer/trainer.xml";
+	private static final String ELIMINAR_FOTO = "C:/xampp/htdocs/tesis/imgUsuarios/dataset";
+	private static final String PRINCIPAL_FOTO = "C:/xampp/htdocs/tesis/imgUsuarios/principal";
+	private static final String DIR_XML = "C:/Users/DanielT/Documents/NetBeansProjects/JavaFXTesis/trainer/trainer.xml";
 	String query;
 	
 	protected void initConexion(String queryRecibido) throws SQLException{
@@ -75,56 +76,8 @@ public class ConexionesExternas {
 		return autorizacion;
 	}
 	
-	protected int lastId() throws SQLException {
-		int id = 0;
-
-		try {
-			query ="select * from empleado order by id desc limit 1";
-			this.initConexion(query);
-			while (myRs.next()) {
-				id = myRs.getInt("id");
-			}
-		} catch (Exception exc) {
-			exc.printStackTrace();
-		} finally {
-			this.cerrarConexion();
-		}
-		return id;
-	}
-	
-	protected void historialTabla(TableView<Person2> list, ObservableList<Person2> items) throws SQLException {
-		
-		try {
-			query ="SELECT emp.nombre, emp.apellido, emp.cedula,  e.fecha_hora, img.nombreImagen"
-					+ " FROM tesis_sistemadeseguridad.evento e"
-					+ " JOIN tesis_sistemadeseguridad.empleado emp ON (e.empleado_id = emp.id)"
-					+ " JOIN tesis_sistemadeseguridad.imagen img ON (img.empleado_id = emp.id)"
-					+ " WHERE img.principal = 1 ORDER BY  e.idEvento DESC";
-			this.initConexion(query);
-			
-			while (myRs.next()) {
-				System.out.println("entra");
-				System.out.println((myRs.getString("emp.nombre")));
-				System.out.println((myRs.getString("emp.cedula")));
-				items.add(new Person2(myRs.getString("emp.nombre"), myRs.getString("emp.apellido"),
-						myRs.getString("emp.cedula"), myRs.getString("e.fecha_hora"),
-						myRs.getString("img.nombreImagen")));
-			}
-		} catch (SQLException e) {
-		} finally {
-			this.cerrarConexion();
-			list.setItems(items);
-		}
-	}
-	
-	/*
-	 *Todavia falta por arreglar todo lo que esta abajo de esto
-	 */
-
 	protected int conexionDBnormal(String nombre, String apellido, String cedula, String user, String pass,
 			String cargo, int perfil) throws SQLException {
-		int idPerfil = 0;
-		int last = 0;
 		int id = 0;
 		try {
 			query ="select * from nivel where perfil=" + " '" + perfil + "'";
@@ -147,36 +100,21 @@ public class ConexionesExternas {
 		}
 		return id;
 	}
-
+	
 	protected void conexionTabla(TableView<Person> list, ObservableList<Person> items) throws SQLException {
 		
 		try {
-<<<<<<< HEAD
-			query = "SELECT emp.id, emp.nombre, emp.apellido, emp.cargo, emp.cedula, emp.usuario,"
-					+ " emp.password" + " FROM tesis_sistemadeseguridad.nivel niv"
-					+ " JOIN tesis_sistemadeseguridad.empleado emp ON (niv.id = emp.nivel_id)";
+			query = "SELECT id, nombre, apellido, cargo, cedula, usuario FROM tesis_sistemadeseguridad.empleado where nivel_id!=4";
 			this.initConexion(query);
-=======
-			myConn = DriverManager.getConnection(root, usuario, clave);
-		} 
-		catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		try {
-			myStmt = myConn.createStatement();
-			myRs = myStmt.executeQuery("SELECT emp.id, emp.nombre, emp.apellido, emp.cargo, emp.cedula, emp.usuario"
-					+ " FROM tesis_sistemadeseguridad.nivel niv"
-					+ " JOIN tesis_sistemadeseguridad.empleado emp ON (niv.id = emp.nivel_id)");
 			
-			//SELECT id, nombre, apellido, cargo, cedula, usuario FROM tesis_sistemadeseguridad.empleado where nivel_id!=4
->>>>>>> c1cdf628e9245e584564f54b5fca208e6e8fd7e9
 			while (myRs.next()) {
 
-				items.add(new Person(myRs.getString("emp.id"), myRs.getString("emp.nombre"),
-						myRs.getString("emp.apellido"), myRs.getString("emp.cargo"), myRs.getString("emp.usuario"),
-						myRs.getString("emp.cedula")));
+				items.add(new Person(myRs.getString("id"), myRs.getString("nombre"),
+						myRs.getString("apellido"), myRs.getString("cargo"), myRs.getString("usuario"),
+						myRs.getString("cedula")));
 			}
-		} 
+			
+		}
 		catch (SQLException e) {
 		} 
 		finally {
@@ -184,7 +122,7 @@ public class ConexionesExternas {
 			list.setItems(items);
 		}
 	}
-
+	
 	protected void eliminarUsuario(ObservableList<Person> items) throws SQLException {
 		String id = items.get(0).getId();
 		System.out.println(id);
@@ -214,10 +152,78 @@ public class ConexionesExternas {
 			}
 		}
 	}
+	
+	protected void historialTabla(TableView<Person2> list, ObservableList<Person2> items) throws SQLException {
+		
+		try {
+			query ="SELECT emp.nombre, emp.apellido, emp.cedula,  e.fecha_hora, img.nombreImagen"
+					+ " FROM tesis_sistemadeseguridad.evento e"
+					+ " JOIN tesis_sistemadeseguridad.empleado emp ON (e.empleado_id = emp.id)"
+					+ " JOIN tesis_sistemadeseguridad.imagen img ON (img.empleado_id = emp.id)"
+					+ " WHERE img.principal = 1 ORDER BY  e.idEvento DESC";
+			this.initConexion(query);
+			
+			while (myRs.next()) {
+				System.out.println("entra");
+				System.out.println((myRs.getString("emp.nombre")));
+				System.out.println((myRs.getString("emp.cedula")));
+				items.add(new Person2(myRs.getString("emp.nombre"), myRs.getString("emp.apellido"),
+						myRs.getString("emp.cedula"), myRs.getString("e.fecha_hora"),
+						myRs.getString("img.nombreImagen")));
+			}
+		} catch (SQLException e) {
+		} finally {
+			this.cerrarConexion();
+			list.setItems(items);
+		}
+	}
+	
+	protected int lastId() throws SQLException {
+		int id = 0;
 
+		try {
+			query ="select * from empleado order by id desc limit 1";
+			this.initConexion(query);
+			while (myRs.next()) {
+				id = myRs.getInt("id");
+			}
+		} catch (Exception exc) {
+			exc.printStackTrace();
+		} finally {
+			this.cerrarConexion();
+		}
+		return id;
+	}
+	
+	protected String consultaImagenBD(String id) throws SQLException {
+		String direccionImagen = null;
+		try {
+			query = "select imagen.nombreImagen from imagen "
+					+ "where imagen.principal = 1 && imagen.empleado_id =" + " '" + id + "'";
+			this.initConexion(query);
+			while (myRs.next()) {
+				direccionImagen = myRs.getString("nombreImagen");
+			}
+		}
+		catch (Exception exc) {
+			exc.printStackTrace();
+		} finally {
+			this.cerrarConexion();
+		}
+		return direccionImagen;
+	}
+	
 	protected void eliminarFotos(int id) {
 		int numero = 0;
 		File folder = new File(ELIMINAR_FOTO);
+		for (File file : folder.listFiles()) {
+			numero = Integer.parseInt(file.getName().split("-")[0]);
+			if (id == numero) {
+				file.delete();
+			}
+		}
+		
+		folder = new File(PRINCIPAL_FOTO);
 		for (File file : folder.listFiles()) {
 			numero = Integer.parseInt(file.getName().split("-")[0]);
 			if (id == numero) {
@@ -266,23 +272,5 @@ public class ConexionesExternas {
 			}
 		}
 	}
-
-	protected String consultaImagenBD(String id) throws SQLException {
-		String direccionImagen = null;
-		try {
-			query = "select imagen.nombreImagen from imagen "
-					+ "where imagen.principal = 1 && imagen.empleado_id =" + " '" + id + "'";
-			this.initConexion(query);
-			while (myRs.next()) {
-				direccionImagen = myRs.getString("nombreImagen");
-			}
-		}
-		catch (Exception exc) {
-			exc.printStackTrace();
-		} finally {
-			this.cerrarConexion();
-		}
-		return direccionImagen;
-	}
-
+	
 }

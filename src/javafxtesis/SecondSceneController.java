@@ -1,7 +1,6 @@
 package javafxtesis;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.net.URL;
@@ -10,7 +9,6 @@ import java.io.IOException;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -29,13 +27,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -107,7 +103,7 @@ public class SecondSceneController implements Initializable {
 	
 	
 	//CONSTANTES
-	private static final String DIR_PRINCIPAL = "C:/xampp/htdocs/tesis/";
+	private static final String DIR_PRINCIPAL = "C:/xampp/htdocs/tesis/imgUsuarios/";
 	private static final String IMG_DEFAULT = "src/javafxtesis/images/icons8_User_50px_1.png";
 	 
 	
@@ -223,6 +219,13 @@ public class SecondSceneController implements Initializable {
     @FXML protected void entrenar(){
         Thread hilo = new Thread(new TrainingHilo());
         hilo.start();
+        
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Transferencia completada");
+        alert.setHeaderText(null);
+        alert.setContentText("El trainer se ha enviado satisfactoriamente");
+        
+        alert.show();
     }
     
     /*
@@ -279,7 +282,6 @@ public class SecondSceneController implements Initializable {
     }
       
     @FXML protected void addDB() throws SQLException{
-    	TextInputDialog dialog = new TextInputDialog();
         String nombre = this.nameText.getText().trim();
         String last = this.apeText.getText().trim();
         String ced = this.cedText.getText().trim();
@@ -289,45 +291,58 @@ public class SecondSceneController implements Initializable {
         
         Alert alert = new Alert(AlertType.CONFIRMATION);
     	alert.setTitle("Nivel de privilegios");
-    	alert.setHeaderText("Admin tendrá toodos los permisos, seguridad podrá usar la app móvil y cualquiera solo quedará registrado");
+    	alert.setHeaderText("Administrador tendrá acceso a todas las aplciaciones,\n seguridad podrá usar la app móvil y\n empleado quedará autorizado para el uso del sistema");
     	alert.setContentText("Escoja su opción");
+    	
+    	Alert falta = new Alert(AlertType.INFORMATION);
+    	falta.setTitle("Faltan campos por llenar");
+    	falta.setHeaderText(null);
+    	falta.setContentText("Faltan datos por rellenar en el formulario");
 
-        ButtonType buttonTypeOne = new ButtonType("Admin");
+        ButtonType buttonTypeOne = new ButtonType("Administrador");
         ButtonType buttonTypeTwo = new ButtonType("Seguridad");
-        ButtonType buttonTypeThree = new ButtonType("Cualquiera");
-    
+        ButtonType buttonTypeThree = new ButtonType("Empleado");
         ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+        
         alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeCancel);
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == buttonTypeOne){
-        	 Integer returnId = con.conexionDBnormal(nombre, last, ced, usuario, clave, car,1);
-             people.add(new Person(returnId.toString(),nombre, last, car, usuario,ced));
-                tabla.setItems(people);
-        } else if (result.get() == buttonTypeTwo) {
-        	Integer returnId = con.conexionDBnormal(nombre, last, ced, usuario, clave, car,2);
-            people.add(new Person(returnId.toString(),nombre, last, car, usuario,ced));
-               tabla.setItems(people);
-        } else if (result.get() == buttonTypeThree) {
-        	Integer returnId = con.conexionDBnormal(nombre, last, ced, usuario, clave, car,3);
-            people.add(new Person(returnId.toString(),nombre, last, car, usuario,ced));
-               tabla.setItems(people);
-        } else {
-            // ... user chose CANCEL or closed the dialog
+        if (nombre.length()!=0 && last.length()!=0 && ced.length()!=0 && car.length()!=0 && usuario.length()!=0 && clave.length()!=0) {
+        	
+        	Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == buttonTypeOne){
+            	 Integer returnId = con.conexionDBnormal(nombre, last, ced, usuario, clave, car,1);
+                 people.add(new Person(returnId.toString(),nombre, last, car, usuario,ced));
+                    tabla.setItems(people);
+            } 
+            else if (result.get() == buttonTypeTwo) {
+            	Integer returnId = con.conexionDBnormal(nombre, last, ced, usuario, clave, car,2);
+                people.add(new Person(returnId.toString(),nombre, last, car, usuario,ced));
+                   tabla.setItems(people);
+            } 
+            else if (result.get() == buttonTypeThree) {
+            	Integer returnId = con.conexionDBnormal(nombre, last, ced, usuario, clave, car,3);
+                people.add(new Person(returnId.toString(),nombre, last, car, usuario,ced));
+                   tabla.setItems(people);
+            }
+            else {
+                // ... user chose CANCEL or closed the dialog
+            }
+            
+            this.add.setVisible(false);
+            this.dataPane.setVisible(false);;
+            this.nuevo.setVisible(true);
+            this.foto.setVisible(false);
+            this.textPane.setVisible(false);
+            
+            this.nameText.clear();
+            this.apeText.clear();
+            this.cedText.clear();
+            this.cargoText.clear();
+            this.userText.clear();
+            this.passText.clear();
         }
-             
-           this.add.setVisible(false);
-           this.dataPane.setVisible(false);;
-           this.nuevo.setVisible(true);
-           this.foto.setVisible(false);
-           this.textPane.setVisible(false);
-           
-           this.nameText.clear();
-           this.apeText.clear();
-           this.cedText.clear();
-           this.cargoText.clear();
-           this.userText.clear();
-           this.passText.clear();
-       
+        else {
+        	falta.show();
+        }
     }
     
     private void datosUsuario(TableRow<Person> fila ) throws FileNotFoundException, SQLException {
@@ -351,6 +366,7 @@ public class SecondSceneController implements Initializable {
         Image imagen = new Image(input);
         this.foto.setImage(imagen);
         this.foto.setVisible(true);
+        
         //Para los datos del usuario
         this.name.setText(rowData.getNombre());
         this.name.setVisible(true);

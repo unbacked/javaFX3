@@ -21,12 +21,11 @@ import org.bytedeco.javacpp.opencv_face.LBPHFaceRecognizer;
 public class TrainingHilo implements Runnable {
     
     ConexionesExternas con = new ConexionesExternas();
+    private static final String DIR = "C:/xampp/htdocs/tesis/imgUsuarios/dataset";
     
     @Override
     public void run() {
-        String trainingDir = "dataset";
-        
-        File root = new File(trainingDir);
+        File root = new File(DIR);
         
         FilenameFilter imgFilter = new FilenameFilter(){
             public boolean accept(File dir, String name){
