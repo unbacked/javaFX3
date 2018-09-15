@@ -46,7 +46,9 @@ public class VideoSceneController {
 	private int ultimoID = 0;
 	private static final String PRIMERA_IMG = "C:/xampp/htdocs/tesis/imgUsuarios/principal/";
 	private static final String FILENAME = "C:/xampp/htdocs/tesis/ImgUsuarios/dataset/";
+	private static final int MAX =30;
 	private String nombre;
+
 	
 	@FXML protected void cerrar() {
         Stage stage = (Stage)cerrar.getScene().getWindow();
@@ -188,7 +190,7 @@ public class VideoSceneController {
 				new Size(this.absoluteFaceSize, this.absoluteFaceSize), new Size());
 		
 		Rect[] facesArray = faces.toArray();
-		while (cont <= 15) {
+		while (cont <= MAX) {
 			for(Rect rect: facesArray) {
 				Imgproc.rectangle(frame, rect.tl(), rect.br(), new Scalar(0, 255, 0), 3);
 				Rect rectCrop = new Rect(rect.x, rect.y, rect.width, rect.height);

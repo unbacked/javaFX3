@@ -37,6 +37,14 @@ public class ConexionesExternas {
 		myRs = myStmt.executeQuery(queryRecibido);
 	}
 	
+	protected void initUpdate(String queryRecibido) throws SQLException{
+		myConn = DriverManager.getConnection(ROOT, USUARIO, CLAVE);
+		
+		myStmt = myConn.createStatement();
+		myStmt.executeUpdate(queryRecibido);
+		
+	}
+	
 	protected void cerrarConexion() throws SQLException{
 		if (myRs != null) {
 			myRs.close();
@@ -277,16 +285,19 @@ public class ConexionesExternas {
 		try {
 			
 			if (cont == 0) {
-				query = "insert into tesis_sistemadeseguridad.imagen (nombreImagen, empleado_id, principal) values ('"+nombre+"', '"+id+"', '0');";
-			}
-			else {
 				query = "insert into tesis_sistemadeseguridad.imagen (nombreImagen, empleado_id, principal) values ('"+nombre+"', '"+id+"', '1');";
 			}
-			this.initConexion(query);
+			else {
+				query = "insert into tesis_sistemadeseguridad.imagen (nombreImagen, empleado_id, principal) values ('"+nombre+"', '"+id+"', '0');";
+			}
+			initUpdate(query);
 			
 		}
 		catch(Exception exc) {
 			exc.printStackTrace();
+		} 
+		finally {
+			cerrarConexion();
 		}
 	}
 	
