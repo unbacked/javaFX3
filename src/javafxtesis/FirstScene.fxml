@@ -24,7 +24,7 @@
             </Label>
             <VBox layoutY="136.0">
                <children>
-                  <JFXButton fx:id="ingreso" buttonType="RAISED" onAction="#ingreso" prefHeight="31.0" prefWidth="210.0" ripplerFill="#ab2727" text="Ingresar" textFill="#bbbbbb">
+                  <JFXButton fx:id="ingreso" buttonType="RAISED" onAction="#ingreso" prefHeight="48.0" prefWidth="200.0" ripplerFill="#ab2727" text="Ingresar" textAlignment="CENTER" textFill="#bbbbbb">
                      <font>
                         <Font size="15.0" />
                      </font>

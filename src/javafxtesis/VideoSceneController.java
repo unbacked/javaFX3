@@ -46,6 +46,7 @@ public class VideoSceneController {
 	private int ultimoID = 0;
 	private static final String PRIMERA_IMG = "C:/xampp/htdocs/tesis/imgUsuarios/principal/";
 	private static final String FILENAME = "C:/xampp/htdocs/tesis/ImgUsuarios/dataset/";
+	private String nombre;
 	
 	@FXML protected void cerrar() {
         Stage stage = (Stage)cerrar.getScene().getWindow();
@@ -78,6 +79,7 @@ public class VideoSceneController {
 						//Convertimo y mostramos el cuadro
 						Image imageToShow = Utils.mat2Image(frame);
 						updateImageView(frames, imageToShow);
+						
 					}
 				};
 				
@@ -100,6 +102,9 @@ public class VideoSceneController {
 			
 			//Paralizamos el timer
 			this.stopAcquisition();
+			
+			//Liberamos la camara
+			this.capture.release();
 		}
 	}
 	
@@ -118,6 +123,7 @@ public class VideoSceneController {
 				if(!frame.empty()) {
 					//Imgproc.cvtColor(frame, frame, Imgproc.COLOR_BGR2GRAY);
 					this.detectAndDisplay(frame);
+					
 				}
 			}
 			catch (Exception e) {
@@ -137,12 +143,17 @@ public class VideoSceneController {
 				//Paramos el timer
 				this.timer.shutdown();
 				this.timer.awaitTermination(33, TimeUnit.MILLISECONDS);
+				
 			}
 			catch (InterruptedException e) {
 				//ponemos el error
 				System.err.println("Problemas para parar la captura de los cuadros, tratando de liberar la camara..."+e);
 			}
 		}
+		
+		/*if(this.capture.isOpened()) {
+			this.capture.release();
+		}*/
 	}
 	
 	/*
@@ -152,7 +163,7 @@ public class VideoSceneController {
 		Utils.onFXThread(view.imageProperty(), image);
 	}
 	
-	private void detectAndDisplay(Mat frame) {
+	private void detectAndDisplay(Mat frame) throws SQLException {
 		MatOfRect faces = new MatOfRect();
 		Mat grayFrame = new Mat();
 		
@@ -187,12 +198,17 @@ public class VideoSceneController {
 					String name = PRIMERA_IMG+ultimoID+"-"+cont+".jpg";
 					System.out.println(String.format("Writing %s", name));
 					Imgcodecs.imwrite(name, imageROI);
+					nombre = "principal/"+ultimoID+"-"+cont+".jpg";
+					
 				}
 				else {
 					String name = FILENAME+ultimoID+"-"+cont+".jpg";
 					System.out.println(String.format("Writing %s", name));
 					Imgcodecs.imwrite(name, imageROI);
+					nombre = "dataset/"+ultimoID+"-"+cont+".jpg";
 				}
+				con.cargaImagenDB(nombre, cont, ultimoID);
+				
 
 				cont++;
 			}

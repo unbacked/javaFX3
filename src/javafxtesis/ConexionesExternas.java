@@ -273,4 +273,21 @@ public class ConexionesExternas {
 		}
 	}
 	
+	protected void cargaImagenDB(String nombre, int cont, int id) throws SQLException {
+		try {
+			
+			if (cont == 0) {
+				query = "insert into tesis_sistemadeseguridad.imagen (nombreImagen, empleado_id, principal) values ('"+nombre+"', '"+id+"', '0');";
+			}
+			else {
+				query = "insert into tesis_sistemadeseguridad.imagen (nombreImagen, empleado_id, principal) values ('"+nombre+"', '"+id+"', '1');";
+			}
+			this.initConexion(query);
+			
+		}
+		catch(Exception exc) {
+			exc.printStackTrace();
+		}
+	}
+	
 }

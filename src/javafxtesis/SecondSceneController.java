@@ -35,11 +35,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 /**
@@ -281,7 +282,7 @@ public class SecondSceneController implements Initializable {
         this.nuevo.setVisible(false);
     }
       
-    @FXML protected void addDB() throws SQLException{
+    @FXML protected void addDB() throws SQLException, IOException{
         String nombre = this.nameText.getText().trim();
         String last = this.apeText.getText().trim();
         String ced = this.cedText.getText().trim();
@@ -311,17 +312,20 @@ public class SecondSceneController implements Initializable {
             if (result.get() == buttonTypeOne){
             	 Integer returnId = con.conexionDBnormal(nombre, last, ced, usuario, clave, car,1);
                  people.add(new Person(returnId.toString(),nombre, last, car, usuario,ced));
-                    tabla.setItems(people);
+                 tabla.setItems(people);
+                 iniciarCaptura();
             } 
             else if (result.get() == buttonTypeTwo) {
             	Integer returnId = con.conexionDBnormal(nombre, last, ced, usuario, clave, car,2);
                 people.add(new Person(returnId.toString(),nombre, last, car, usuario,ced));
-                   tabla.setItems(people);
+                tabla.setItems(people);
+                iniciarCaptura();
             } 
             else if (result.get() == buttonTypeThree) {
             	Integer returnId = con.conexionDBnormal(nombre, last, ced, usuario, clave, car,3);
                 people.add(new Person(returnId.toString(),nombre, last, car, usuario,ced));
-                   tabla.setItems(people);
+                tabla.setItems(people);
+                iniciarCaptura();
             }
             else {
                 // ... user chose CANCEL or closed the dialog
@@ -380,15 +384,15 @@ public class SecondSceneController implements Initializable {
         this.user.setVisible(true);
 	}
     
-    @FXML protected void iniciarCaptura(MouseEvent event) throws IOException {
-    	Parent loader = FXMLLoader.load(getClass().getResource("VideoScene.fxml"));
-    	Scene video = new Scene(loader);
+    protected void iniciarCaptura() throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("VideoScene.fxml"));
+    	Parent root = (Parent) fxmlLoader.load();
+    	Stage stage = new Stage();
     	
-    	Stage window;
-    	window = (Stage)((Node)event.getSource()).getScene().getWindow();
-    	
-    	window.setScene(video);
-    	window.show();
+    	stage.setScene(new Scene(root));
+    	stage.initStyle(StageStyle.TRANSPARENT);
+    	stage.initModality(Modality.APPLICATION_MODAL);
+    	stage.show();
     }
     
     /*
