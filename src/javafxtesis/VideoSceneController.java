@@ -76,11 +76,14 @@ public class VideoSceneController {
 					
 					@Override
 					public void run() {
-						//Vamos a procesar cuadro por cuadro
-						Mat frame = grabFrame();
-						//Convertimo y mostramos el cuadro
-						Image imageToShow = Utils.mat2Image(frame);
-						updateImageView(frames, imageToShow);
+						while (cont <= MAX) {
+							//Vamos a procesar cuadro por cuadro
+							Mat frame = grabFrame();
+							//Convertimo y mostramos el cuadro
+							Image imageToShow = Utils.mat2Image(frame);
+							updateImageView(frames, imageToShow);
+							cont++;
+							}
 						
 					}
 				};
@@ -190,30 +193,25 @@ public class VideoSceneController {
 				new Size(this.absoluteFaceSize, this.absoluteFaceSize), new Size());
 		
 		Rect[] facesArray = faces.toArray();
-		while (cont <= MAX) {
-			for(Rect rect: facesArray) {
-				Imgproc.rectangle(frame, rect.tl(), rect.br(), new Scalar(0, 255, 0), 3);
-				Rect rectCrop = new Rect(rect.x, rect.y, rect.width, rect.height);
-				Mat imageROI = new Mat(grayFrame, rectCrop);
+		for(Rect rect: facesArray) {
+			Imgproc.rectangle(frame, rect.tl(), rect.br(), new Scalar(0, 255, 0), 3);
+			Rect rectCrop = new Rect(rect.x, rect.y, rect.width, rect.height);
+			Mat imageROI = new Mat(grayFrame, rectCrop);
 				
-				if(cont == 0) {
-					String name = PRIMERA_IMG+ultimoID+"-"+cont+".jpg";
-					System.out.println(String.format("Writing %s", name));
-					Imgcodecs.imwrite(name, imageROI);
-					nombre = "principal/"+ultimoID+"-"+cont+".jpg";
+			if(cont == 0) {
+				String name = PRIMERA_IMG+ultimoID+"-"+cont+".jpg";
+				System.out.println(String.format("Writing %s", name));
+				Imgcodecs.imwrite(name, imageROI);
+				nombre = "principal/"+ultimoID+"-"+cont+".jpg";
 					
-				}
-				else {
-					String name = FILENAME+ultimoID+"-"+cont+".jpg";
-					System.out.println(String.format("Writing %s", name));
-					Imgcodecs.imwrite(name, imageROI);
-					nombre = "dataset/"+ultimoID+"-"+cont+".jpg";
-				}
-				con.cargaImagenDB(nombre, cont, ultimoID);
-				
-
-				cont++;
 			}
+			else {
+				String name = FILENAME+ultimoID+"-"+cont+".jpg";
+				System.out.println(String.format("Writing %s", name));
+				Imgcodecs.imwrite(name, imageROI);
+				nombre = "dataset/"+ultimoID+"-"+cont+".jpg";
+				}
+			con.cargaImagenDB(nombre, cont, ultimoID);
 		}
 	}
 }
