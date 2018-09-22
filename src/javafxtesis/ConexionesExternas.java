@@ -308,10 +308,10 @@ public class ConexionesExternas {
 		}
 	}
 	
-	protected static String getSecurePassword(String password) {
+	private static String getSecurePassword(String password) {
 		String generatedPassword = null;
 		try {
-			MessageDigest md = MessageDigest.getInstance("");
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			byte[] bytes = md.digest(password.getBytes());
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i<bytes.length; i++) {
@@ -325,4 +325,5 @@ public class ConexionesExternas {
 		
 		return generatedPassword;
 	}
+	
 }

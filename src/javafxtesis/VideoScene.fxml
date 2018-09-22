@@ -35,7 +35,7 @@
                      <graphic>
                         <ImageView fitHeight="23.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/icons8_Undo_50px.png" />
+                              <Image url="@images/icons8_Video_Call_50px_1.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -50,5 +50,10 @@
          </font>
       </Label>
       <ImageView fx:id="frames" fitHeight="356.0" fitWidth="328.0" layoutX="260.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="152.0" fitWidth="152.0" layoutX="24.0" layoutY="288.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/promo1.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
