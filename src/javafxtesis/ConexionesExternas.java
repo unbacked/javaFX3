@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
 import javafx.collections.ObservableList;
@@ -60,6 +61,10 @@ public class ConexionesExternas {
 	protected boolean conexionAdmin(String user, String pass) throws SQLException {
 		boolean autorizacion = false;
 		try {
+			if(!pass.contains("admin")) {
+				pass = getSecurePassword(pass);
+			}
+
 			query = "select * from empleado where nivel_id=" + 1 + "&& usuario=" + " '" + user
 					+ "' && password=" + " '" + pass + "'";
 			this.initConexion(query);
@@ -90,7 +95,9 @@ public class ConexionesExternas {
 		try {
 			query ="select * from nivel where perfil=" + " '" + perfil + "'";
 			this.initConexion(query);
-
+			
+			pass = getSecurePassword(pass);
+			
 			myStmt.executeUpdate("INSERT INTO empleado (" + "nombre, " + "apellido, " + "acceso, " + "usuario, "
 					+ "password, " + "cedula, " + "cargo, " + "nivel_id)" + "VALUES (" + "'" + nombre + "','" + apellido + "','" + 0
 					+ "','" + user + "','" + pass + "','" + cedula + "','"+ cargo + "','" + + perfil+ "')");
@@ -301,4 +308,21 @@ public class ConexionesExternas {
 		}
 	}
 	
+	protected static String getSecurePassword(String password) {
+		String generatedPassword = null;
+		try {
+			MessageDigest md = MessageDigest.getInstance("");
+			byte[] bytes = md.digest(password.getBytes());
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i<bytes.length; i++) {
+				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+			}
+			generatedPassword = sb.toString();
+		}
+		catch (NoSuchAlgorithmException e){
+			
+		}
+		
+		return generatedPassword;
+	}
 }
